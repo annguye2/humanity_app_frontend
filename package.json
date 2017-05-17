@@ -1,0 +1,23 @@
+{
+  "name": "humanity_app_frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/annguye2/-humanity_app_frontend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/annguye2/-humanity_app_frontend/issues"
+  },
+  "homepage": "https://github.com/annguye2/-humanity_app_frontend#readme",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
+}
