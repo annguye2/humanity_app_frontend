@@ -49,13 +49,13 @@ app.controller('CardsController', ['$http', function($http){
 
 }]);
 
-app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider){
-   $locationProvider.html5Mode({enabled:true});
-   $routeProvider.when('/url1', { //route would come from controller file with routes
-      template: '<h2>This is the the URL1 Section</h2>',
-      controller: function(){
-         this.foo = 'bar';
-      },
-      controllerAs: 'main'
-   });
-}]);
+// app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider){
+//    $locationProvider.html5Mode({enabled:true});
+//    $routeProvider.when('/url1', { //route would come from controller file with routes
+//       template: '<h2>This is the the URL1 Section</h2>',
+//       controller: function(){
+//          this.foo = 'bar';
+//       },
+//       controllerAs: 'main'
+//    });
+// }]);
