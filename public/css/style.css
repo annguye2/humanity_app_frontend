@@ -80,6 +80,13 @@ span{
    margin-right: 20px;
 }
 
+.blackQuestions{
+   position: relative;
+   left: -190px;
+   top: 5px;
+   font-size: 18px;
+}
+
 .whiteAnswers{
    position: relative;
    left: -190px;
