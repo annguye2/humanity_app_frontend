@@ -34,7 +34,7 @@ var app = angular.modue('CAHApp', ['ngRoute']);
 app.controller('CardsController', ['$http', function($http){
    this.landing = false;
 
-   // //GET ALL NOTICES
+   // //GET ALL WHITE CARDS
    // $http({
    //    method: 'GET',
    //    url: 'http://localhost:3000/notices'
