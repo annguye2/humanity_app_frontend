@@ -1,4 +1,4 @@
-console.clear();
+// console.clear();
 
 //$(funtion(){
 ///   console.log('Jquery Loaded');
@@ -31,7 +31,58 @@ console.clear();
 
 //});
 
+var domainurl = "http://localhost:3000";
+this.player = {};
 var app = angular.module('CAHApp', []);
+
+app.controller('UsersController', ['$http', function($http){
+console.log("username: ", this.name);
+
+  this.loginUser = function(userPass) {
+    // console.log(userPass);
+  $http({ // Makes HTTP request to server
+    method: 'POST',
+    url: domainurl + '/players/login',
+    data: {
+      player: { // Gets turned into req.body
+        username: userPass.username,
+        password: userPass.password
+      }
+    }
+  }).then(function(response) {
+    // controller.user = response.data;
+    // controller.logInUsername = controller.logInPassword = "";
+    this.player=response.data.player;
+    localStorage.setItem('token', JSON.stringify(response.data.token));
+    console.log(response);
+    console.log(JSON.parse(localStorage.getItem('token')));
+  }.bind(this));
+};
+
+
+  this.createUser = function(){
+    // console.log("username: ", this.name);
+
+    $http({ // Makes HTTP request to server
+        method: 'POST',
+        url: domainurl + '/players',
+        data: { // Gets turned into req.body
+          name: this.name,
+          img: this.img,
+          password: this.password,
+          email: this.email,
+          high_score: 0
+        }
+      }).then(function(response) {
+        // this.logInUsername = controller.newUserUsername;
+        // this.logInPassword = controller.newUserPassword;
+        // controller.newUserName = controller.newUserUsername = controller.newUserPassword = controller.newUserImage = "";
+        // controller.logIn();
+      }.bind(this));
+  };
+
+  }]);
+
 
 app.controller('CardsController', ['$http', function($http){
 
@@ -42,7 +93,7 @@ app.controller('CardsController', ['$http', function($http){
 
   $http({
      method: 'GET',
-     url: 'http://localhost:3000/blackcards'
+     url: '/blackcards'
   }).then(function(result){
      this.blackcards = result.data;
     //  console.log(this.blackcards);
@@ -50,7 +101,7 @@ app.controller('CardsController', ['$http', function($http){
 
   $http({
      method: 'GET',
-     url: 'http://localhost:3000/whitecards'
+     url: '/whitecards'
   }).then(function(result){
      this.whitecards = result.data;
     //  console.log(this.whitecards);
@@ -65,7 +116,7 @@ this.dealBlack = function (){
     this.blackcards.splice(this.random, 1);
     // console.log("dealt black card ",this.dealtBlackcards );
     // console.log("black cards: ", this.blackcards);
-}
+};
 
 this.dealWhite= function (){
   for (var i = 0 ; i < 4; i ++ ){
@@ -74,12 +125,13 @@ this.dealWhite= function (){
   }
   console.log('answers: ', this.answers);
 
-}
+};
 
 
 this.getRandomArbitrary = function (min, max) {
  return Math.floor(Math.random() * (max - min)) + min;
-}
+};
+
 
 
 }]);

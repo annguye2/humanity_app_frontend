@@ -3,10 +3,9 @@ var router = express.Router();
 var bcrypt = require('bcrypt');
 var session = require('express-session');
 
-// var User = require('../models/users.js');
 
 router.get('/new', function(req, res){
-  res.render('sessions/new.ejs');
+  res.redirect('app.html');
 });
 
 router.post('/', function(req, res){
