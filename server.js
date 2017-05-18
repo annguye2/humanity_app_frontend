@@ -1,8 +1,10 @@
 var express = require('express')
 var app = express();
-var port = 8000 || process.env.PORT;;
+var port = 8000 || process.env.PORT;
 
 app.use(express.static('public'))
+
+
 
 
 app.listen(port, function(){
