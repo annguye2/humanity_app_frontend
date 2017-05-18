@@ -48,14 +48,18 @@
       <h1 class="slide-in-right title2">Against</h1>
       <h1 class="slide-in-left title3">Humanity</h1>
    </section> -->
+
 	<div class="container">
+
+
        <main class="gameboard">
           <div class="deckOfCards">
-             <img class="blackDeck" src="assets/back-black.png" height="275px" width="200px"/>
-             <img class="whiteDeck" src="assets/back-white.png" height="275px" width="200px"/>
+             <img  ng-click='CAH.dealBlack()' class="blackDeck" src="assets/back-black.png" height="275px" width="200px"/>
+             <img ng-click='CAH.dealWhite()'class="whiteDeck" src="assets/back-white.png" height="275px" width="200px"/>
          </div>
+  		 	<!-- need to refrest the div  to the end of round -->
           <div class="blackDealt">
-             <img class="blackPlayed" src="assets/blank-black.png" height="275px" width="200px"/><span class="blackQuestions">{{CAH.Text}}</span><br>
+             <img class="blackPlayed" src="assets/blank-black.png" height="275px" width="200px"/><span class="blackQuestions">{{CAH.question}}</span><br>
          </div>
          <div class="cardSelected">
             <div class="cardSelectedPlayer">
@@ -66,9 +70,9 @@
            </div>
         </div>
         <div class="playerCards">
-           <div class="whiteDealt">
-             <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"><span class="whiteAnswers">Testing Text</span></img><br></div>
-           <div class="whiteDealt">
+           <div class="whiteDealt" ng-repeat='answer in CAH.answers'>
+           <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"><span class="whiteAnswers">{{answer}}</span></img><br></div>
+           <!-- <div class="whiteDealt">
              <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/><br></div>
           <div class="whiteDealt">
              <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/><br></div>
@@ -79,7 +83,7 @@
           <div class="whiteDealt">
              <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/><br></div>
           <div class="whiteDealt">
-             <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/><br></div>
+             <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/><br></div> -->
         </div>
        </main>
 		 <aside>

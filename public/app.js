@@ -35,16 +35,51 @@ var app = angular.module('CAHApp', []);
 
 app.controller('CardsController', ['$http', function($http){
 
-//   this.blackcards =[];
-   //GET ALL WHITE CARDS
-  //  $http({
-  //     method: 'GET',
-  //     url: 'http://localhost:3000/blackcards'
-  //  }).then(function(result){
-  //     console.log(result.data);
-  //     this.blackcards = result.data;
-  //     console.log(this.blackcards);
-  //  }.bind(this));
+  this.whitecards =[];
+  this.blackcards = [];
+  this.answers    = [];
+  //  GET ALL WHITE CARDS
+
+  $http({
+     method: 'GET',
+     url: 'http://localhost:3000/blackcards'
+  }).then(function(result){
+     this.blackcards = result.data;
+    //  console.log(this.blackcards);
+  }.bind(this));
+
+  $http({
+     method: 'GET',
+     url: 'http://localhost:3000/whitecards'
+  }).then(function(result){
+     this.whitecards = result.data;
+    //  console.log(this.whitecards);
+  }.bind(this));
+
+
+
+
+this.dealBlack = function (){
+    this.random = this.getRandomArbitrary(this.blackcards.length - 1, 0);
+    this.question = this.blackcards[this.random].question;
+    this.blackcards.splice(this.random, 1);
+    // console.log("dealt black card ",this.dealtBlackcards );
+    // console.log("black cards: ", this.blackcards);
+}
+
+this.dealWhite= function (){
+  for (var i = 0 ; i < 4; i ++ ){
+    this.random = this.getRandomArbitrary(this.whitecards.length - 1, 0);
+    this.answers.push(this.whitecards[this.random].answer);
+  }
+  console.log('answers: ', this.answers);
+
+}
+
+
+this.getRandomArbitrary = function (min, max) {
+ return Math.floor(Math.random() * (max - min)) + min;
+}
 
 
 }]);
