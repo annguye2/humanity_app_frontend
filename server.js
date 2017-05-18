@@ -1,3 +1,4 @@
+
 //require modules and models
 var express = require('express');
 var app = express();
@@ -8,7 +9,10 @@ app.use(bodyParser.json());
 
 var bcrypt= require('bcrypt');
 app.use(express.static('public'));
+
 var port = 8000 || process.env.PORT;
+
+
 
 app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({extended:false}));
