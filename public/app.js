@@ -1,6 +1,4 @@
-//console.clear();
-
-var currentPlayerId = -11;
+console.clear();
 
 var app = angular.module('CAHApp', []);
 app.service('sharedProperties', function () {
@@ -32,14 +30,14 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
       if(response.data.token){
         //console.log( "login success: ");
         this.player=response.data.player;
-        currentPlayerId = this.player.id;
-        //console.log("currentPlayerId :", currentPlayerId);
-        //  console.log(this.player);
-        // $scope.id  = sharedProperties.this.player.id;
+
+
 
         //console.log("player :", this.player);
         //console.log('token ' ,response.data.token);
         localStorage.setItem('token', JSON.stringify(response.data.token));
+        localStorage.setItem('playerId', this.player.id);
+
         var mainpage = "http://localhost:8000/app.html";
         window.location.href = mainpage;
 
@@ -102,9 +100,9 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
 
 
 app.controller('CardsController', ['$http', '$scope', function($http, $scope,sharedProperties ,$timeout){
-  //$scope.id  = sharedProperties.response.data.player.id
-  //$scope.id  = sharedProperties.this.player.id;
-  //console.log("player from user controller playerId", currentPlayerId);
+
+
+
   var domainurl2 = "http://localhost:3000";
   this.whitecards = [];   // get all white cards
   this.blackcards = [];   // get all black cards
@@ -259,13 +257,17 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
 
   //==========================
    this.highScore = function(){
-     console.log("localStorage.getItem('token'):  ", localStorage.getItem('token'));
+     this.currentPlayerId = localStorage.getItem('playerId');
+     console.log("localStorage.getItem('playerid'):  ", localStorage.getItem('playerId'));
      $http({ // Makes HTTP request to server
-       method: 'GET',
-       url: "http://localhost:3000/players/",
-       data: {
-          Authorization: localStorage.getItem('token')
-         }
+       method: 'PUT',
+       url: domainurl2+ '/players/' + this.currentPlayerId,
+       headers: {
+         Authorization: 'Bearer' + JSON.parse(localStorage.getItem('token'))
+       },
+        data: {
+          high_score: 10
+        }
      }).then(function(response){
         console.log("user response", response);
      })
