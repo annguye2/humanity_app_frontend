@@ -1,7 +1,6 @@
 {
   "name": "humanity_app_frontend",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -18,7 +17,14 @@
   },
   "homepage": "https://github.com/annguye2/-humanity_app_frontend#readme",
   "dependencies": {
+    "bcrypt": "^1.0.2",
+    "body-parser": "^1.17.2",
     "bulma": "^0.4.1",
-    "express": "^4.15.3"
-  }
+    "express": "^4.15.3",
+    "express-session": "^1.15.3",
+    "express-sessions": "^1.0.6",
+    "method-override": "^2.3.8"
+  },
+  "devDependencies": {},
+  "description": ""
 }
