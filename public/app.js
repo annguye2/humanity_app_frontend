@@ -96,7 +96,7 @@ app.controller('CardsController', ['$http', function($http){
      url: '/blackcards'
   }).then(function(result){
      this.blackcards = result.data;
-    //  console.log(this.blackcards);
+    console.log(this.blackcards);
   }.bind(this));
 
   $http({
@@ -104,7 +104,7 @@ app.controller('CardsController', ['$http', function($http){
      url: '/whitecards'
   }).then(function(result){
      this.whitecards = result.data;
-    //  console.log(this.whitecards);
+    console.log(this.whitecards);
   }.bind(this));
 
 
