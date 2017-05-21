@@ -113,13 +113,17 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
   //=============================
   //-------User Create User------
   //=============================
+  this.createUserMessage = "";
+  this.registerErrorMsg = "missing required field(s)"
   this.indexHtml = "http://localhost:8000";
   this.username = "";
   this.password = "";
   this.email = "";
   this.img = "";
   this.name = "";
+
   this.createUser = function(){
+
  console.log('create new player');
  // console.log(this.username);
  // console.log(this.password);
@@ -161,9 +165,8 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
       //    this.createUserMessage = "Registration Incomplete";
       // }
 
-    }.bind(this));
-  };
-}]);
+  }; // end of creat User
+}]); // end of User Controller
 
 //========================
 //---Cards Controller---
@@ -292,7 +295,7 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
        method: 'PUT',
        url: domainurl2+ '/players/' + this.currentPlayerId,
        headers: {
-         Authorization: 'Bearer' + JSON.parse(localStorage.getItem('token'))
+         Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('token'))
        },
         data: {
           high_score: 10
