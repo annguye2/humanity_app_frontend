@@ -64,11 +64,12 @@
                 <div class="formInput modal-body">
                             <form>
                                 <div ng-show="!CAH.isRegistered">{{CAH.createUserMessage}}</div>
-                                <input ng-model="CAH.name" type="text" placeholder="Name"/><br>
+                                <input ng-model="CAH.name" type="text" placeholder="Name"/>  <span style="color:red">*</span><br>
                                 <input ng-model="CAH.email" type="text" placeholder="Email"/><br>
                                 <!-- <input type="text" placeholder="Date of Birth"/><br> -->
                                 <input ng-model="CAH.img" type="text" placeholder="Image URL"/><br>
-                                <input ng-model="CAH.password" type="text" placeholder="Password"/><br>
+                                <input ng-model="CAH.username" type="text" placeholder="username"/><span style="color:red">*</span><br>
+                                <input ng-model="CAH.password" type="text" placeholder="Password"/><span style="color:red">*</span><br>
                                  <button class="btn btn-default" type="submit" name="button" ng-click="CAH.createUser()">Submit</button>
                             </form >
                 </div>
