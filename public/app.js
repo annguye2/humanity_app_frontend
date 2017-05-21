@@ -269,7 +269,7 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
        method: 'PUT',
        url: domainurl2+ '/players/' + this.currentPlayerId,
        headers: {
-         Authorization: 'Bearer' + JSON.parse(localStorage.getItem('token'))
+         Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('token'))
        },
         data: {
           high_score: 10
