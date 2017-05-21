@@ -1,4 +1,4 @@
-```<!DOCTYPE html>
+<!DOCTYPE html>
 <html ng-app="CAHApp">
 <head>
     <title>Cards Against Humanity</title>
@@ -9,6 +9,9 @@
       <!-- APP -->
      <!-- Compiled and minified JavaScript -->
      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+
+
+     </script>
       <script src="app.js"></script>
       <!--STYLE SHEET-->
      <!-- Compiled and minified CSS -->
@@ -41,38 +44,32 @@
            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Log Log In</a></li>
        </ul>
    </nav> -->
-   <!-- <section>
-      <h1 class="slide-in-left title1">Cards</h1>
-      <h1 class="slide-in-right title2">Against</h1>
-      <h1 class="slide-in-left title3">Humanity</h1>
-   </section> -->
     <div class="container">
        <main class="gameboard">
           <div class="deckOfCards">
-             <img  ng-click='CAH.dealBlack()' class="blackDeck" src="assets/back-black.png" height="275px" width="200px"/>
+             <img ng-click='CAH.dealBlack()' class="blackDeck" src="assets/back-black.png" height="275px" width="200px"/>
              <img ng-click='CAH.dealWhite()'class="whiteDeck" src="assets/back-white.png" height="275px" width="200px"/>
          </div>
             <!-- need to refrest the div  to the end of round -->
-          <div class="blackDealt">
-             <img class="blackPlayed" src="assets/blank-black.png" height="275px" width="200px"/><span class="blackQuestions">{{CAH.question}}</span><br>
+          <div ng-show="CAH.showQuestion" class="slide-in-elliptic-top-fwd blackDealt">
+             <img class="blackPlayed" src="assets/blank-black.png" height="275px" width="200px"/>
+						 <!-- An changed:  -->
+						 <!-- <span class="blackQuestions">{{CAH.question}}</span><br> -->
+				<span class="blackQuestions">{{CAH.dealtBlackcard.question}}</span><br>
+						 <!-- end -->
          </div>
-
-
-         <div class="cardSelected">
-            <div class="cardSelectedPlayer">
-               <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/>
-							 {{CAH.selectedAnswer}}
-            </div>
-            <div ng-if="CAH.isSelected==true" ng-init='CAH.computerTurn()' class="cardSelectedComp">
-               <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/>{{CAH.computerAnswer.answer}}<br>
-           </div>
+         <div class="cardSelectedPlayer" ng-show='CAH.cardPlayed'>
+            <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/><span class-"whiteAnswers"
+						 {{CAH.playerSelectedWhiteCard.answer}}</span>
+         </div>
+			<div class="cardSelectedComp" ng-show='CAH.cardPlayed'>
+            <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/><span class="whiteAnswers">{{CAH.computerAnswer.answer}}</span><br>
         </div>
-
-
-
         <div ng-hide="CAH.isSelected"class="playerCards">
-           <div   ng-click='CAH.selectCard(answer)' class="whiteDealt" ng-repeat='answer in CAH.answers track by $index'>
-           <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"><span class="whiteAnswers">{{answer.answer}}</span></img><br></div>
+					<!-- An changed and added -->
+           <!-- <div   ng-click='CAH.selectCard(answer)' class="whiteDealt" ng-repeat='answer in CAH.answers track by $index'> -->
+					 <div ng-show="CAH.showAnswers" ng-click='CAH.selectCard(card, $index); CAH.computerTurn()' class="slide-in-elliptic-top-fwd whiteDealt" ng-repeat='card in CAH.dealtWhitecards track by $index'>
+           <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"><span class="whiteAnswers">{{card.answer}}</span></img><br></div>
            <!-- <div class="whiteDealt">
              <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/><br></div>
           <div class="whiteDealt">
@@ -124,6 +121,6 @@
             </div>
        </aside>
     </div>
-    <footer>...</footer>
+    <footer>Made with &hearts; by An Nguyen, Biren Jaspal, & Soniya Jassal<br> Powered by Cards Against Humanity&copy; </footer>
 </body>
 </html>
