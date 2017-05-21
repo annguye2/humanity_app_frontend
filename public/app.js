@@ -1,5 +1,5 @@
 // console.clear();
-
+// this is updating for Biren
 var app_domain = "http://localhost:8000/";
 var api_domain  ="http://localhost:3000/";
 //========================
@@ -50,7 +50,7 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
     $http({ // Makes HTTP request to server
       method: 'POST',
       // url: this.domainurl1 + '/players/login',
-      url: api_domain + '/players/login',
+      url: api_domain + 'players/login',
       data: {
         player: { // Gets turned into req.body
           username: userPass.username,
