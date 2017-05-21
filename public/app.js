@@ -97,47 +97,59 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
   //=============================
   //-------User Create User------
   //=============================
+  this.createUserMessage = "";
+  this.registerErrorMsg = "missing required field(s)"
   this.indexHtml = "http://localhost:8000";
   this.username = "";
   this.password = "";
   this.email = "";
   this.img = "";
   this.name = "";
+
   this.createUser = function(){
- console.log('create new player');
- console.log(this.username);
- console.log(this.password);
- console.log(this.name);
- console.log(this.email);
- console.log(this.img);
- console.log(this.domainurl1);
+    // initial register fields
+    console.log('create new player');
+    console.log(this.username);
+    console.log(this.password);
+    console.log(this.name);
+    console.log(this.email);
+    console.log(this.img);
+    console.log(this.domainurl1);
+
+    if (this.username !='' &&  this.password !='' && this.name != ''){
+      console.log('allow to register');
+      $http({ // Makes HTTP request to server
+        method: 'POST',
+        url: this.domainurl1 + '/players',
+        data: { // Gets turned into req.body
+          username: this.username,
+          name: this.name,
+          img: this.img,
+          password: this.password,
+          email: this.email,
+          high_score: 0
+        }
+      }).then(function(response) {
+        console.log(response);
+        if(response.status == 201)
+        {
+          window.location.href = this.indexHtml; //"http://localhost:8000";
+        }else //Can we do validation?
+        {
+          this.isRegistered = false;
+          this.createUserMessage = "Registration Incomplete";
+        }
+
+      }.bind(this));
+    }else {
+      this.isRegistered = false;// show error
+      this.createUserMessage = "Missing required field(s)"
+      console.log("missing required field(s)");
+    }
 
 
-    $http({ // Makes HTTP request to server
-      method: 'POST',
-      url: this.domainurl1 + '/players',
-      data: { // Gets turned into req.body
-        username: this.username,
-        name: this.name,
-        img: this.img,
-        password: this.password,
-        email: this.email,
-        high_score: 0
-      }
-    }).then(function(response) {
-      console.log(response);
-      if(response.status == 201)
-      {
-         window.location.href = this.indexHtml; "http://localhost:8000";
-      }else //Can we do validation?
-      {
-         this.isRegistered = false;
-         this.createUserMessage = "Registration Incomplete";
-      }
-
-    }.bind(this));
-  };
-}]);
+  }; // end of creat User
+}]); // end of User Controller
 
 //========================
 //---Cards Controller---
