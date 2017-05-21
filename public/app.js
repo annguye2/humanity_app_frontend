@@ -208,11 +208,13 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
   //----Cards Deal White Cards----
   //==============================
   this.dealWhite= function (){
-    for (var i = 0 ; i < 4; i ++ ){
-      this.random = this.getRandomArbitrary(this.whitecards.length - 1, 0);
-      this.dealtWhitecards.push(this.whitecards[this.random]);
-      this.whitecards.splice(this.random, 1);
-   };
+    if (this.dealtWhitecards.length != 4){
+      for (var i = 0 ; i < 4; i ++ ){
+        this.random = this.getRandomArbitrary(this.whitecards.length - 1, 0);
+        this.dealtWhitecards.push(this.whitecards[this.random]);
+        this.whitecards.splice(this.random, 1);
+     };
+    }
   };
   //=================================
   //---Cards Computer Turn to Play---
@@ -272,7 +274,7 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
          Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('token'))
        },
         data: {
-          high_score: 10
+          high_score: this.playerScore
         }
      }).then(function(response){
         console.log("user response", response);
