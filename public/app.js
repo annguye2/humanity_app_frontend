@@ -221,14 +221,14 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
   //----Cards Deal White Cards----
   //==============================
   this.dealWhite= function (){
-
-    console.log('these whitecards :', this.whitecards);
+    this.showAnswers = true;
+    //console.log('these whitecards :', this.whitecards);
     if (this.dealtWhitecards.length != 4){  //this prevent the dealtWhitecards pass 4 cards each time this function got called
       for (var i = 0 ; i < 4; i ++ ){
         this.random = this.getRandomArbitrary(this.whitecards.length - 1, 0);
         this.dealtWhitecards.push(this.whitecards[this.random]);
         this.whitecards.splice(this.random, 1);
-        console.log('loop run???  :' , this.dealtWhitecards);
+        //console.log('loop run???  :' , this.dealtWhitecards);
      }
     }
   };
@@ -305,7 +305,6 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
    //---Cards Player Turns---
    //========================
    this.selectCard = function(selectedWhiteCard, index){
-
        this.isSelected = true;
        this.cardPlayed = true; //set isSelected to true
        this.playerSelectedWhiteCard = selectedWhiteCard; // get selected white card info
@@ -313,7 +312,6 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
        this.random = this.getRandomArbitrary(this.whitecards.length - 1, 0);
        this.dealtWhitecards.push(this.whitecards[this.random]);
        this.whitecards.splice(this.random, 1)
-
    }
 
    //========================
