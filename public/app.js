@@ -50,7 +50,7 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
     $http({ // Makes HTTP request to server
       method: 'POST',
       // url: this.domainurl1 + '/players/login',
-      url: api_domain + '/players/login',
+      url: api_domain + 'players/login',
       data: {
         player: { // Gets turned into req.body
           username: userPass.username,
