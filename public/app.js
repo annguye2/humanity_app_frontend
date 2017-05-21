@@ -123,14 +123,7 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
   this.name = "";
 
   this.createUser = function(){
-
- console.log('create new player');
- // console.log(this.username);
- // console.log(this.password);
- // console.log(this.name);
- // console.log(this.email);
- // console.log(this.img);
- // console.log(this.domainurl1);
+  //console.log('create new player');
    if((this.username == '') ||
       (this.username == 'undefined')||
       (this.name == '') ||
@@ -141,7 +134,6 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
       this.createUserMessage = "Your registration is incomplete";
       return;
    }
-
     $http({ // Makes HTTP request to server
       method: 'POST',
       url: this.domainurl1 + '/players',
@@ -157,14 +149,14 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
       console.log(response);
       if(response.status == 201)
       {
-         window.location.href = this.indexHtml; "http://localhost:8000";
+         window.location.href = this.indexHtml; //"http://localhost:8000";
       }
       // }else //Can we do validation?
       // {
       //
       //    this.createUserMessage = "Registration Incomplete";
       // }
-
+})
   }; // end of creat User
 }]); // end of User Controller
 
@@ -229,12 +221,16 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
   //----Cards Deal White Cards----
   //==============================
   this.dealWhite= function (){
-    for (var i = 0 ; i < 4; i ++ ){
-      this.random = this.getRandomArbitrary(this.whitecards.length - 1, 0);
-      this.dealtWhitecards.push(this.whitecards[this.random]);
-      this.whitecards.splice(this.random, 1);
-      this.showAnswers = true;
-   };
+    this.showAnswers = true;
+    //console.log('these whitecards :', this.whitecards);
+    if (this.dealtWhitecards.length != 4){  //this prevent the dealtWhitecards pass 4 cards each time this function got called
+      for (var i = 0 ; i < 4; i ++ ){
+        this.random = this.getRandomArbitrary(this.whitecards.length - 1, 0);
+        this.dealtWhitecards.push(this.whitecards[this.random]);
+        this.whitecards.splice(this.random, 1);
+        //console.log('loop run???  :' , this.dealtWhitecards);
+     }
+    }
   };
   //=================================
   //---Cards Computer Turn to Play---
@@ -298,7 +294,7 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
          Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('token'))
        },
         data: {
-          high_score: 10
+          high_score: this.playerScore
         }
      }).then(function(response){
         console.log("user response", response);
@@ -309,7 +305,6 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
    //---Cards Player Turns---
    //========================
    this.selectCard = function(selectedWhiteCard, index){
-
        this.isSelected = true;
        this.cardPlayed = true; //set isSelected to true
        this.playerSelectedWhiteCard = selectedWhiteCard; // get selected white card info
@@ -317,7 +312,6 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
        this.random = this.getRandomArbitrary(this.whitecards.length - 1, 0);
        this.dealtWhitecards.push(this.whitecards[this.random]);
        this.whitecards.splice(this.random, 1)
-
    }
 
    //========================
