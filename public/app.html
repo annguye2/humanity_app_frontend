@@ -1,4 +1,4 @@
-```<!DOCTYPE html>
+<!DOCTYPE html>
 <html ng-app="CAHApp">
 <head>
     <title>Cards Against Humanity</title>
@@ -47,41 +47,29 @@
     <div class="container">
        <main class="gameboard">
           <div class="deckOfCards">
-             <img  ng-click='CAH.dealBlack()' class="blackDeck" src="assets/back-black.png" height="275px" width="200px"/>
+             <img ng-click='CAH.dealBlack()' class="blackDeck" src="assets/back-black.png" height="275px" width="200px"/>
              <img ng-click='CAH.dealWhite()'class="whiteDeck" src="assets/back-white.png" height="275px" width="200px"/>
          </div>
             <!-- need to refrest the div  to the end of round -->
-          <div class="blackDealt">
+          <div ng-show="CAH.showQuestion" class="slide-in-elliptic-top-fwd blackDealt">
              <img class="blackPlayed" src="assets/blank-black.png" height="275px" width="200px"/>
 						 <!-- An changed:  -->
 						 <!-- <span class="blackQuestions">{{CAH.question}}</span><br> -->
-						 <span class="blackQuestions">{{CAH.dealtBlackcard.question}}</span><br>
+				<span class="blackQuestions">{{CAH.dealtBlackcard.question}}</span><br>
 						 <!-- end -->
          </div>
-
-
-         <div class="cardSelected" ng-show='CAH.showAnswers'>
-            <div class="cardSelectedPlayer">
-               <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/>
-							 <!-- An changed  -->
-							 <!-- {{CAH.selectedAnswer}} -->
-							 {{CAH.playerSelectedWhiteCard.answer}}___________ player answer
-							 <!-- end -->
-            </div>
-            <!-- <div ng-if="CAH.isSelected" ng-init='CAH.computerTurn()' class="cardSelectedComp"> -->
-						<div   class="cardSelectedComp">
-               <img class="whitePlayed" src="assets/blank-white.png" height="50px" width="50px"/>{{CAH.computerAnswer.answer}}___computer answer<br>
-
-           </div>
+         <div class="cardSelectedPlayer" ng-show='CAH.cardPlayed'>
+            <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/><span class-"whiteAnswers"
+						 {{CAH.playerSelectedWhiteCard.answer}}</span>
+         </div>
+			<div class="cardSelectedComp" ng-show='CAH.cardPlayed'>
+            <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/><span class="whiteAnswers">{{CAH.computerAnswer.answer}}</span><br>
         </div>
-
-
-
         <div ng-hide="CAH.isSelected"class="playerCards">
 					<!-- An changed and added -->
            <!-- <div   ng-click='CAH.selectCard(answer)' class="whiteDealt" ng-repeat='answer in CAH.answers track by $index'> -->
-					 <div   ng-click='CAH.selectCard(card, $index); CAH.computerTurn()' class="whiteDealt" ng-repeat='card in CAH.dealtWhitecards track by $index'>
-           <img class="whitePlayed" src="assets/blank-white.png" height="100px" width="200px"><span class="whiteAnswers">{{card.answer}}</span></img><br></div>
+					 <div ng-show="CAH.showAnswers" ng-click='CAH.selectCard(card, $index); CAH.computerTurn()' class="slide-in-elliptic-top-fwd whiteDealt" ng-repeat='card in CAH.dealtWhitecards track by $index'>
+           <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"><span class="whiteAnswers">{{card.answer}}</span></img><br></div>
            <!-- <div class="whiteDealt">
              <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/><br></div>
           <div class="whiteDealt">

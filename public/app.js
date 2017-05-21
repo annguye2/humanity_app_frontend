@@ -21,14 +21,29 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
   //=============================
   this.player = {};
   this.isRegistered = true;
+  this.isLoggedIn = false;
   this.domainurl1 = "http://localhost:3000";
   this.url1 = "http://localhost:8000/";
+
 
   //=============================
   //-------User Login User-------
   //=============================
   this.loginUser = function(userPass) {
+     console.log(userPass);
     this.mainpage = "http://localhost:8000/app.html";
+    if ((userPass == 'undefined') ||
+        (userPass.username == null) ||
+        (userPass.username == '') ||
+        (userPass.username == 'undefined') ||
+        (userPass.password == '') ||
+        (userPass.password == 'undefined') ||
+        (userPass.password == null)){
+           window.location.href = this.url1;
+           this.logInMessage = 'Invalid Login Attempt, please try again.'
+           return;
+    }
+
     $http({ // Makes HTTP request to server
       method: 'POST',
       // url: this.domainurl1 + '/players/login',
@@ -48,10 +63,11 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
         localStorage.setItem('playerId', this.player.id);
         window.location.href = this.mainpage;
         console.log(JSON.parse(localStorage.getItem('token')));
+        this.isLoggedIn = true;
       }
       else if(response.data.token == 'undefined'){
         window.location.href = this.url1;
-        console.log("Not Logged in");
+        this.logInMessage = 'Invalid Login Attempt, please try again.'
       }
     }.bind(this));
   };
@@ -105,13 +121,22 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
   this.name = "";
   this.createUser = function(){
  console.log('create new player');
- console.log(this.username);
- console.log(this.password);
- console.log(this.name);
- console.log(this.email);
- console.log(this.img);
- console.log(this.domainurl1);
-
+ // console.log(this.username);
+ // console.log(this.password);
+ // console.log(this.name);
+ // console.log(this.email);
+ // console.log(this.img);
+ // console.log(this.domainurl1);
+   if((this.username == '') ||
+      (this.username == 'undefined')||
+      (this.name == '') ||
+      (this.name == 'undefined') ||
+      (this.password == '') ||
+      (this.password == 'undefined')){
+      this.isRegistered = false;
+      this.createUserMessage = "Your registration is incomplete";
+      return;
+   }
 
     $http({ // Makes HTTP request to server
       method: 'POST',
@@ -129,11 +154,12 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
       if(response.status == 201)
       {
          window.location.href = this.indexHtml; "http://localhost:8000";
-      }else //Can we do validation?
-      {
-         this.isRegistered = false;
-         this.createUserMessage = "Registration Incomplete";
       }
+      // }else //Can we do validation?
+      // {
+      //
+      //    this.createUserMessage = "Registration Incomplete";
+      // }
 
     }.bind(this));
   };
@@ -161,6 +187,8 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
   this.dealtWhitecards = [];   // dealt whitecards
   this.playerSelectedWhiteCard;
   this.showAnswers = false;
+  this.showQuestion = false;
+  this.cardPlayed = false;
 
   //===============================
   //---Cards Get All Black Cards---
@@ -190,6 +218,8 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
     this.random = this.getRandomArbitrary(this.blackcards.length - 1, 0);
     this.dealtBlackcard  = this.blackcards[this.random];
     this.blackcards.splice(this.random, 1);
+    this.showQuestion = true;
+    //console.log(this.isDealtBlack);
 
   };
   //==============================
@@ -200,6 +230,7 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
       this.random = this.getRandomArbitrary(this.whitecards.length - 1, 0);
       this.dealtWhitecards.push(this.whitecards[this.random]);
       this.whitecards.splice(this.random, 1);
+      this.showAnswers = true;
    };
   };
   //=================================
@@ -219,33 +250,37 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
 
       this.scores = result.data.scores;
       for (var i = 0; i < this.scores.length; i ++){
-        if (this.playerSelectedWhiteCard.id == this.scores[i].whitecard_id ){
-            // get player Score on a round
-            this.playerEachRoundScore = this.scores[i].score;
-            console.log("this.playerEachRoundScore: " ,this.playerEachRoundScore );
-        }
-        if (this.computerAnswer.id == this.scores[i].whitecard_id ){  // get computer score on a round
-            this.computerEachRoundScore = this.scores[i].score;
-        }
+      if (this.playerSelectedWhiteCard.id == this.scores[i].whitecard_id ){
+      // get player Score on a round
+      this.playerEachRoundScore = this.scores[i].score;
+      console.log("this.playerEachRoundScore: " ,this.playerEachRoundScore );
+      }
+      if (this.computerAnswer.id == this.scores[i].whitecard_id ){  // get computer score on a round
+      this.computerEachRoundScore = this.scores[i].score;
+      }
+      }
+      if(this.playerEachRoundScore  > this.computerEachRoundScore){
+      // console.log("player is a winner ");
+      this.playerScore += this.playerEachRoundScore;
+      }else{
+         this.computerScore += this.computerEachRoundScore;
       }
 
-     this.computerScore += this.computerEachRoundScore;
-     this.playerScore += this.playerEachRoundScore;
-     if (this.playerEachRoundScore > this.computerEachRoundScore ){
-        console.log("Player is a winner ");
+      if (this.playerEachRoundScore > this.computerEachRoundScore ){
+      console.log("Player is a winner ");
       }
       else  {
-         console.log("computer is a winner ");
+      console.log("computer is a winner ");
       }
       if (this.gameCount > 9 ){
-        this.gameIsOver = true;
-        this.highScore();
+      this.gameIsOver = true;
+      this.highScore();
       }else {
-        this.gameCount += 1;
-        this.nextRound();
+      this.gameCount += 1;
+      this.nextRound();
       }
     }.bind(this));
-  }
+   }
 
   //========================
   //----Cards High Score----
@@ -273,7 +308,7 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
    this.selectCard = function(selectedWhiteCard, index){
 
        this.isSelected = true;
-       this.showAnswers = true; //set isSelected to true
+       this.cardPlayed = true; //set isSelected to true
        this.playerSelectedWhiteCard = selectedWhiteCard; // get selected white card info
        this.dealtWhitecards.splice(index, 1); // remove selected white card from white dealt cards
        this.random = this.getRandomArbitrary(this.whitecards.length - 1, 0);
@@ -369,10 +404,6 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
 //this.score = this.scores[i].score;
 //this.score2 = this.scores[i].score;
 //console.log("this.computerEachRoundScore: ", this.computerEachRoundScore );
-// if(this.score  > this.score2){
-//   // console.log("player is a winner ");
-//   this.playerScore +=  this.score;
-// }
 // console.log("computer total scores: ", this.computerScore);
 // console.log("player total scores: ", this.playerScore);
 //window.location.reload(true);
