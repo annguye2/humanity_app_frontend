@@ -51,6 +51,7 @@
                 </div>
                 <div class="formInput modal-body">
                             <form>
+                                <div ng-show="!CAH.isRegistered">{{CAH.createUserMessage}}</div>
                                 <input ng-model="CAH.name" type="text" placeholder="Name"/><br>
                                 <input ng-model="CAH.email" type="text" placeholder="Email"/><br>
                                 <!-- <input type="text" placeholder="Date of Birth"/><br> -->
