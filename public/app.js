@@ -107,7 +107,8 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
    //      high_score: 0
    //    }
     localStorage.clear('token');
-    location.reload();
+    window.location.href = this.url1;
+    //location.reload();
   };
 
   //=============================
@@ -183,12 +184,15 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
   this.computerScore = 0;
   this.gameCount = 0 ;
   this.gameIsOver = false;
-  this.dealtBlackcard;   // dealt black cards
+  this.dealtBlackcard = [] ;  // dealt black cards
   this.dealtWhitecards = [];   // dealt whitecards
   this.playerSelectedWhiteCard;
   this.showAnswers = false;
   this.showQuestion = false;
   this.cardPlayed = false;
+  this.isDealtBlack = false;
+  this.isDealtWhite = false;
+  this.timer = 0;
 
   //===============================
   //---Cards Get All Black Cards---
@@ -220,6 +224,7 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
     this.blackcards.splice(this.random, 1);
     this.showQuestion = true;
     //console.log(this.isDealtBlack);
+    this.isDealtBlack = true;
 
   };
   //==============================
@@ -231,6 +236,7 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
       this.dealtWhitecards.push(this.whitecards[this.random]);
       this.whitecards.splice(this.random, 1);
       this.showAnswers = true;
+      this.isDealtWhite =true;
    };
   };
   //=================================
