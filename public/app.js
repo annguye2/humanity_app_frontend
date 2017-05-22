@@ -19,6 +19,7 @@ app.service('sharedProperties', function () {
 //-----User Controller----
 //========================
 app.controller('UsersController', ['$http', '$scope', function($http, $scope, sharedProperties){
+  this.mainpage = "/app.html";
   //=============================
   //----User Initializing Var----
   //=============================
@@ -36,7 +37,7 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
   //=============================
   this.loginUser = function(userPass) {
     console.log(userPass);
-    this.mainpage = "http://localhost:8000/app.html";
+
     if ((userPass == 'undefined') ||
     (userPass.username == null) ||
     (userPass.username == '') ||
