@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html ng-app="CAHApp">
+<head>
+  <style media="screen">
+
+  </style>
+
+
+  <title>Cards Against Humanity</title>
+  <!--Angular-->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+  <!-- JQUERY -->
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <!-- APP -->
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+
+</script>
+<script src="app.js"></script>
+<!--STYLE SHEET-->
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+<link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/pure-min.css" integrity="sha384-UQiGfs9ICog+LwheBSRCt1o5cbyKIHbwjWscjemyBMT9YCUMZffs6UqUTd0hObXD" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<!--FONT-->
+<link href="https://fonts.googleapis.com/css?family=Luckiest+Guy" rel="stylesheet">
+</head>
+<body >
+
+  <nav class="pure-menu pure-menu-horizontal">
+    <ul class="pure-menu-list">
+      <li class="pure-menu-item"><a href="/app.html" class="pure-menu-link">Home</a></li>
+      <!-- <li class="pure-menu-item"><a href="/profile.html" class="pure-menu-link">Profile</a></li> -->
+      <li class="pure-menu-item"><a href="/" class="pure-menu-link" ng-click='CAH.Logout()'>Log Out</a></li>
+    </ul>
+  </nav>
+  <p> Player Profile </p>
+
+  <div class="update" style="border: 1px solid black" ng-controller="UsersController as player" ng-init="player.loadProfile()">
+    <div style="background: whitesmoke; width:50%">
+      <p>Player Profile</p>
+      <form>
+        <!-- Name:  <input ng-model="player.updatePlayerName" type="text" placeholder=""/>{{player.playerProfile.name}}<span style="color:red">*</span> -->
+         <!-- Email:  <input ng-model="player.updatePlayerEmail" type="text" placeholder=""/>{{player.playerProfile.email}}<span style="opacity: 0">*</span><br> -->
+        <!-- Img:  <input ng-model="player.updatePlayerImg" type="text" placeholder=""/>{{player.playerProfile.img}}<span style="opacity: 0">*</span><br> -->
+        <!-- Username:  <input readonly="readonly" type="text" placeholder=""/>{{player.playerProfile.username}}<span style="color:red">*</span><br> -->
+        Password:  <input ng-model="player.updatePlayerPassword" type="text" placeholder="new password"/><span style="color:red">*</span><br>  
+        <button class="btn btn-default" type="submit" name="button" ng-click="player.updateProfile()">update</button>
+        <button class="btn btn-default" type="submit" name="button" ng-click="player.deletePlayer()">delete</button>
+        <button class="btn btn-default" type="submit" name="button" ng-click="player.cancelUpdate()">Cancel</button>
+      </form >
+    </div>
+  </div>
+
+
+  <footer>Made with &hearts; by An Nguyen, Biren Jaspal, & Soniya Jassal<br> Powered by Cards Against Humanity&copy; </footer>
+</body>
+</html>

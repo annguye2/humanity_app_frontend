@@ -9,7 +9,7 @@ var app = express();
 
 
 app.use(express.static('public'));
-var port = 8000 || process.env.PORT;
+var port =  process.env.PORT || 8000;
 
 //
 //
@@ -43,6 +43,6 @@ var port = 8000 || process.env.PORT;
 
 app.listen(port, function(){
   console.log('=================================================');
-  console.log('Humanity App frontend server runs on port: ', port);
+  console.log('Humanity App frontend server runs on this port:', port);
   console.log('=================================================');
 });
