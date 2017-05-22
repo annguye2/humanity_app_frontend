@@ -59,7 +59,7 @@
                      <label>Name:<span style="color:red">*</span></label> <input ng-model="player.playerProfile.name" type="text" /><br>
                      <label> Email: </label><input ng-model="player.playerProfile.email" type="text" /><br>
                      <label>Image URL:</label> <input ng-model="player.playerProfile.img" type="text"/>
-                     <label>Password:<span style="color:red">*</span></label><input ng-model="player.playerProfile.password" type="text"/>
+                     <label>Password:<span style="color:red">*</span></label><input type="password" ng-model="player.playerProfile.password" type="text"/>
                       <button class="btn btn-default" type="submit" name="button" ng-click="player.updateProfile()">Update</button>
                       <button class="btn btn-default" type="submit" name="button" ng-click="player.deletePlayer()">Disable</button>
                  </form >
