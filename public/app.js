@@ -227,6 +227,8 @@ this.loadProfile = function() {
        window.location.href="/app.html"
     })
   }
+
+  
     //=============================
     //-------User Delete User------
     //=============================
