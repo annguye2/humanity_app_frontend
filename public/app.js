@@ -84,6 +84,7 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
       }
   }; // end of login
 
+
   //=============================
   //-------User Get Players------
   //=============================
@@ -92,7 +93,7 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
     $http({ // Makes HTTP request to server
       method: 'GET',
       // url: this.domainurl1 + '/players/',
-      url: api_domain + '/players/',
+      url: api_domain + '/players',
       headers: {
         Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('token'))
       }
@@ -100,10 +101,12 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
       if(response.data.status == 401) {
         this.error = "Unauthorized";
       } else {
-        this.players = response.data;
+        this.players = response.data; //get all players
       }
     }.bind(this));
   };
+
+
   //=============================
   //---------User Logout---------
   //=============================
