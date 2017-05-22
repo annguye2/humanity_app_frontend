@@ -28,11 +28,13 @@ body {
    	-ms-animation: 20s linear 0s normal none infinite animate;
    	-o-animation: 20s linear 0s normal none infinite animate;
    	animation: 40s linear 0s normal none infinite animate;
+   min-width: 1200px;
+   text-align: center;
 }
 
 main{
    flex: auto;
-   background-color: rgba(66,66,66,0.75);
+   background-color: rgba(47,47,47,0.75);
    margin: 10px;
    /*border-style: outset;
    border-width: medium;*/
@@ -44,6 +46,7 @@ main{
    padding: 45px;
    padding-left: 10px;
    padding-right: 10px;
+   width: 900px;
 }
 
 nav{
@@ -55,16 +58,20 @@ nav{
    /*padding-left: 1175px;*/
    /*border-style:ridge;
    border-width: medium;*/
-}
-nav, aside{
-   /*background-color: black;*/
+   text-align: left;
 
 }
+
 
 aside{
+   /*margin-top: 40px;*/
+   display: flex;
    order: -1;
-   float: left;
+   /*justify-content: center;*/
+   /*float: left;*/
    /*margin-top: 10px;*/
+   /*text-align: left;*/
+   width: 350px;
 }
 
 header {
@@ -82,6 +89,9 @@ span{
    padding: 0;
 }
 
+.space{
+   margin-top: 0px;
+}
 .headerText{
    margin-right: 20px;
 }
@@ -99,20 +109,22 @@ span{
    left: -190px;
    top: 5px;
    font-size: 18px;
+   /*margin: auto;*/
+   text-align: left;
 }
 .playerCards{
    display: flex;
-   justify-content: center;
+   /*justify-content: center;*/
    /*flex-wrap: wrap;*/
    margin-top: 40px;
-
 }
 
 .whiteDealt{
    display: flex;
-   margin-top: 30px;
-   justify-content: space-between;
-   align-content: center;
+   /*margin: -55px;*/
+   /*justify-content: space-between;
+   align-content: stretch;
+   margin: auto;*/
    /*padding-right: 20px;*/
 }
 .playingRound{
@@ -144,7 +156,7 @@ span{
    margin-top: 30px;
    margin-right: 20px;
    position: relative;
-   ont-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
    font-weight: bold;
    /*border-radius: 10px;
    box-shadow: 10px 10px 5px #888888;*/
@@ -205,26 +217,45 @@ span{
 .cardHeaderWhite{
    border-radius: 5px;
    transform: rotate(-15deg);
+   top: 0px;
 }
 
 .asideHeader{
-   font-size: 30px;
+   font-size: 15px;
 }
 
 .score{
    border-radius: 10px;
+   background:#2F2F2F
    /*border-style: outset;
    border-width: medium;*/
-   margin: 10px;
-   font-size: 20px;
+   /*margin: 10px;*/
+   font-size: 15px;
 }
-
+.white-text{
+   font-size: 30px;
+}
 .container{
    display: flex;
    flex: 1;
    flex-direction: column;
    /*background-color: black;*/
    border-radius: 5px; /*NEW*/
+   width: 1200px;
+   margin: 0 auto;
+   text-align: center;
+}
+
+.transparaent{
+   opacity: 1.0;
+}
+.formHeader{
+   font-size: 30px;
+}
+
+.formInput{
+   text-align: center;
+   font-size: 25px;
 }
 
 /*After many failed attempts to have the above code to animate over only the background image and failing the below code was found on: https://codepen.io/asfarmed/pen/IEhCK*/
@@ -258,16 +289,19 @@ span{
    .container{
       flex-direction: row;
       flex: 1;
+      flex: 0, 0, 1200px;
    }
    nav{
-      flex: 0 0 5.5em;
+      flex: 0 0 6.5em;
       background-color: black;
       display: block;
+      padding: 1em;
    }
    aside{
-      flex: 0 0 20em;
-      float: left;
+      flex: 0 0 15em;
+      justify-content: center;
       /*background-color: black;*/
+      margin: auto;
    }
    footer{
       /*margin-top: 20%;*/
@@ -276,7 +310,8 @@ span{
    }
 
    main{
-      /*flex: 0 0 60em;*/
+      flex: 0 0 900px;
+      margin: auto;
    }
 }
 /* ----------------------------------------------
@@ -291,5 +326,5 @@ span{
  	animation: slide-in-elliptic-top-fwd 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
  }
 
- @-webkit-keyframes slide-in-elliptic-top-fwd{0%{-webkit-transform:translateY(-600px) rotateX(-30deg) scale(0);transform:translateY(-600px) rotateX(-30deg) scale(0);-webkit-transform-origin:50% 100%;transform-origin:50% 100%;opacity:0}100%{-webkit-transform:translateY(0) rotateX(0) scale(1);transform:translateY(0) rotateX(0) scale(1);-webkit-transform-origin:50% 1400px;transform-origin:50% 1400px;opacity:1}}
- @keyframes slide-in-elliptic-top-fwd{0%{-webkit-transform:translateY(-600px) rotateX(-30deg) scale(0);transform:translateY(-600px) rotateX(-30deg) scale(0);-webkit-transform-origin:50% 100%;transform-origin:50% 100%;opacity:0}100%{-webkit-transform:translateY(0) rotateX(0) scale(1);transform:translateY(0) rotateX(0) scale(1);-webkit-transform-origin:50% 1400px;transform-origin:50% 1400px;opacity:1}}
+ @-webkit-keyframes slide-in-elliptic-top-fwd{0%{-webkit-transform:translateY(-600px) rotateX(-30deg) scale(0);transform:translateY(-600px) rotateX(-30deg) scale(0);-webkit-transform-origin:50% 100%;transform-origin:50% 100%;opacity:0}100%{-webkit-transform:translateY(0) rotateX(0) scale(1);transform:translateY(30deg) rotateX(0) scale(1);-webkit-transform-origin:50% 1400px;transform-origin:50% 1400px;opacity:1}}
+ @keyframes slide-in-elliptic-top-fwd{0%{-webkit-transform:translateY(-600px) rotateX(-30deg) scale(0);transform:translateY(-600px) rotateX(-30deg) scale(0);-webkit-transform-origin:50% 100%;transform-origin:50% 100%;opacity:0}100%{-webkit-transform:translateY(0) rotateX(0) scale(1);transform:translateY(35deg) rotateX(0) scale(1);-webkit-transform-origin:50% 1400px;transform-origin:50% 1400px;opacity:1}}

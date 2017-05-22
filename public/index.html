@@ -37,7 +37,7 @@
        </ul>
    </nav> -->
     <header></header>
-
+    <main id="wrapper">
     <div class="title">
         <img class="title1 roll-in-left" src="assets/Cards.png" height="475px" width="350px"/>
         <img class="title2 swing-in-top-fwd" src="assets/Against.png" height="475px" width="350px"/>
@@ -46,13 +46,12 @@
         <a href="#signup" class="roll-in-left btn1 btn btn-default btn-lg active" role="button" data-toggle="modal" data-target="#signup">Sign up</a>
     </div>
 
-   <main>
       <!-- <div class="slide-in-left">
             <h1 class="title1">Cards<br> -->
 
             <!-- </h1>
         </div> -->
-        <!-- Modal -->
+        <!-- Sign Up Modal -->
           <div class="modal fade" id="signup" role="dialog">
             <div class="modal-dialog">
               <!-- Modal content-->
@@ -69,7 +68,7 @@
                                 <!-- <input type="text" placeholder="Date of Birth"/><br> -->
                                 <input ng-model="CAH.img" type="text" placeholder="Image URL"/><span style="opacity: 0">*</span><br>
                                 <input ng-model="CAH.username" type="text" placeholder="username"/><span style="color:red">*</span><br>
-                                <input ng-model="CAH.password" type="text" placeholder="Password"/><span style="color:red">*</span><br>
+                                <input ng-model="CAH.password" type="password" placeholder="Password"/><span style="color:red">*</span><br>
                                  <button class="btn btn-default" type="submit" name="button" ng-click="CAH.createUser()">Submit</button>
                             </form >
                 </div>
@@ -83,7 +82,7 @@
       <!-- <h1 class="slide-in-left title3">Humanity<br> -->
 
       <!-- </h1> -->
-        <!-- Modal -->
+        <!-- Login Modal -->
           <div class="modal fade" id="login" role="dialog">
             <div class="modal-dialog">
               <!-- Modal content-->
@@ -92,14 +91,17 @@
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                   <h4 class="formHeader modal-title">Log In</h4>
                 </div>
-                <div ng-show="!CAH.isLoggedIn" style="color:red">{{CAH.logInMessage}}</div>
-                <div class="formInput modal-body">
-                     <input type="text" ng-model="userPass.username" placeholder="Userame"/><br>
-                     <input type="text" ng-model="userPass.password" placeholder="Password"/><br>
-                </div>
+                <form >
+                  <div ng-show="!CAH.isLoggedIn" style="color:red">{{CAH.logInMessage}}</div>
+                  <div class="formInput modal-body">
+                       <input type="text" ng-model="userPass.username" placeholder="Userame"/><br>
+                       <input type="password" ng-model="userPass.password" placeholder="Password"/><br>
+                  </div>
+                </form>
+
                 <div class="modal-footer">
                      <button class="btn btn-default" type="submit" name="button" ng-click="CAH.loginUser(userPass)">Login</button>
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button ng-click='CAH.resetLoginMsg()'type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
               </div>
             </div>
