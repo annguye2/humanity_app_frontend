@@ -1,7 +1,7 @@
 // console.clear();
 // this is updating for Biren
 var app_domain = "http://localhost:8000/";
-var api_domain  ="http://localhost:3000/";
+var api_domain  ='https://humanity-app-api.herokuapp.com/';//"http://localhost:3000/";
 //========================
 //-----Angular Module-----
 //========================
@@ -25,13 +25,7 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
   this.player = {};
   this.isRegistered = true;
   this.isLoggedIn = false;
-//update variables
-  this.updatePlayerId="";  // for update
-  this.updatePlayerName="";
-  this.updatePlayerPassword ="";
-  this.updatePlayerImg ="";
-  this.updatePlayerEmail = "";
-  this.updatePlayerToken =""
+
 
   //this.domainurl1 = "http://localhost:3000";
   //this.url1 = "http://localhost:8000/";
@@ -107,19 +101,8 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
   //---------User Logout---------
   //=============================
   this.logout = function(){
-
-    //clear session--check for logout function in routes
-    //   $http({ // Makes HTTP request to server
-    //    method: 'POST',
-    //    url: this.domainurl1 + '/players',
-    //    data: { // Gets turned into req.body
-    //      name: this.name,
-    //      img: this.img,
-    //      password: this.password,
-    //      email: this.email,
-    //      high_score: 0
-    //    }
-    localStorage.clear();
+     console.log('logout');
+    $localStorage.$reset();
     window.location.href='/';
   };
 
@@ -201,8 +184,13 @@ this.loadProfile = function() {
 //=============================
 //-------User Update User------
 //=============================
+//update variables
+  this.updatePlayerName="";
+  this.updatePlayerPassword ="";
+  this.updatePlayerImg ="";
+  this.updatePlayerEmail = "";
   this.updateProfile = function(){
-    this.currentPlayerId = localStorage.getItem('playerId');
+  this.currentPlayerId = localStorage.getItem('playerId');
 
     $http({ // Makes HTTP request to server
       method: 'PUT',
@@ -212,12 +200,15 @@ this.loadProfile = function() {
         Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('token'))
       },
        data: {
-         high_score: this.playerScore,
-         username:  "win", // testing
-         password: "pass1234" //testing
+        //  name:      this.updatePlayerName,  //update name
+          password:  this.updatePlayerPassword,//testing
+        //  img:       this.updatePlayerImg,
+        //  email:     this.updatePlayerEmail
+
        }
     }).then(function(response){
        console.log("user response", response);
+       window.location.href="/app.html"
     })
   }
     //=============================
@@ -237,6 +228,7 @@ this.loadProfile = function() {
 
     }).then(function(response){
        console.log("user response", response);
+      localStorage.clear();
        window.location.href = '/'
     })
   }
@@ -449,6 +441,14 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
 
   }
 
+  //=======================
+  //---Cards Log out   ---
+  //=======================
+  this.logout = function(){
+    console.log('logout');
+    localStorage.clear();
+    //window.location.href='/';
+  };
 
 }]); // end of controller
 

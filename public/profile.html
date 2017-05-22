@@ -40,11 +40,11 @@
     <div style="background: whitesmoke; width:50%">
       <p>Player Profile</p>
       <form>
-        Name:  <input ng-model="" type="text" placeholder="{{player.playerProfile.name}}"/><span style="color:red">*</span>
-        Email:  <input ng-model="" type="text" placeholder="{{player.playerProfile.email}}"/><span style="opacity: 0">*</span>
-        Img:  <input ng-model="" type="text" placeholder="{{player.playerProfile.img}}"/><span style="opacity: 0">*</span><br>
-        Username:  <input ng-model="" type="text" placeholder="{{player.playerProfile.username}}"/><span style="color:red">*</span>
-        Password:  <input ng-model="" type="text" placeholder="new password"/><span style="color:red">*</span>
+        <!-- Name:  <input ng-model="player.updatePlayerName" type="text" placeholder=""/>{{player.playerProfile.name}}<span style="color:red">*</span> -->
+         <!-- Email:  <input ng-model="player.updatePlayerEmail" type="text" placeholder=""/>{{player.playerProfile.email}}<span style="opacity: 0">*</span><br> -->
+        <!-- Img:  <input ng-model="player.updatePlayerImg" type="text" placeholder=""/>{{player.playerProfile.img}}<span style="opacity: 0">*</span><br> -->
+        <!-- Username:  <input readonly="readonly" type="text" placeholder=""/>{{player.playerProfile.username}}<span style="color:red">*</span><br> -->
+        Password:  <input ng-model="player.updatePlayerPassword" type="text" placeholder="new password"/><span style="color:red">*</span><br>  
         <button class="btn btn-default" type="submit" name="button" ng-click="player.updateProfile()">update</button>
         <button class="btn btn-default" type="submit" name="button" ng-click="player.deletePlayer()">delete</button>
         <button class="btn btn-default" type="submit" name="button" ng-click="player.cancelUpdate()">Cancel</button>
