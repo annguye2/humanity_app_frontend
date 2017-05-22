@@ -22,6 +22,8 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
   //=============================
   //----User Initializing Var----
   //=============================
+
+  this.gameIsOver = localStorage.getItem('gameIsOver');
   this.player = {};
   this.isRegistered = true;
   this.isLoggedIn = true;
@@ -95,7 +97,7 @@ this.resetLoginMsg = function(){
   //-------User Get Players------
   //=============================
   this.getPlayers = function() {
-
+  console.log('loading when game is over ');
     $http({ // Makes HTTP request to server
       method: 'GET',
       // url: this.domainurl1 + '/players/',
@@ -214,7 +216,7 @@ this.loadProfile = function() {
        (this.playerProfile.password == "" || this.playerProfile.password == undefined))
        {
          console.log(" invalid input ");
-         this.showErrorOnUpdate = true; 
+         this.showErrorOnUpdate = true;
        }
   else{
     console.log('alow to update ');
@@ -392,6 +394,7 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
       }
       if (this.gameCount > 9 ){
         this.gameIsOver = true;
+        localStorage.setItem('gameIsOver', this.gameIsOver);
         this.highScore();
       }else {
         this.gameCount += 1;

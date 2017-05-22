@@ -159,6 +159,44 @@
         </div>
       </div>
     </div>
+
+    <!-- Game Over Modal -->
+         <div ng-controller="UsersController as highscore" ng-init='highscore.getPlayers()' class="transparent modal fade" id="gameover" role="dialog">
+           <div class="modal-dialog">
+             <!-- Modal content-->
+             <div class="modal-content">
+               <div class="modal-header">
+                 <button type="button" class="close" data-dismiss="modal">&times;</button>
+                 <h4 class="formHeader modal-title">High Scores!</h4>
+             </div>
+             <div class="modal-body">
+                <div ng-repeat="scores in highscore.players">
+                   <table class="table table-striped">
+                      <thead>
+                        <tr>
+                           <th>Player</th>
+                           <th>High Score</th>
+                        </tr>
+                        <thead>
+                           <tbod>
+                              <tr>
+                                 <td>test{{scores.name}}</td>
+                              </tr>
+                              <tr>
+                                 <td>test{{scores.high_score}}</td>
+                              </tr>
+                           </tbody>
+                        </table>
+                        {{scores.name}} {{scores.high_score}}
+                     </div>
+                  </div>
+               <div class="modal-footer">
+                    <!-- <button class="btn btn-default" type="submit" name="button" ng-click="CAH.loginUser(userPass)">Disable</button> -->
+                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+               </div>
+             </div>
+           </div>
+         </div>
     <footer>Made with &hearts; by An Nguyen, Biren Jaspal, & Soniya Jassal<br> Powered by Cards Against Humanity&copy; </footer>
 </body>
 </html>
