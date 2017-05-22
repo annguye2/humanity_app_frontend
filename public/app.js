@@ -201,26 +201,35 @@ this.loadProfile = function() {
 //-------User Update User------
 //=============================
 //update variables
-  this.updatePlayerName="";
-  this.updatePlayerPassword ="";
-  this.updatePlayerImg ="";
-  this.updatePlayerEmail = "";
+  // this.updatePlayerName="";
+  // this.updatePlayerPassword ="";
+  // this.updatePlayerImg ="";
+  // this.updatePlayerEmail = "";
+  this.updateProfileError = "Invalid input for name/password";
+  this.showErrorOnUpdate  = false;
   this.updateProfile = function(){
   this.currentPlayerId = localStorage.getItem('playerId');
-
+  console.log(' this is current player profile ', this.playerProfile);
+  if ((this.playerProfile.name == "" || this.playerProfile.name == undefined) ||
+       (this.playerProfile.password == "" || this.playerProfile.password == undefined))
+       {
+         console.log(" invalid input ");
+         this.showErrorOnUpdate = true; 
+       }
+  else{
+    console.log('alow to update ');
     $http({ // Makes HTTP request to server
       method: 'PUT',
-     //  url: domainurl2+ '/players/' + this.currentPlayerId,
       url: api_domain + '/players/' + this.currentPlayerId,
       headers: {
         Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('token'))
       },
        data: {
-        //  name:      this.updatePlayerName,  //update name
-        //  password:  this.updatePlayerPassword,//testing
-          high_score:       this.playerProfile.high_score,
-        //  email:     this.updatePlayerEmail
-
+          name:      this.playerProfile.name,
+          password:  this.playerProfile.password,
+          high_score:this.playerProfile.high_score,
+          email:     this.playerProfile.email,
+          img:       this.playerProfile.img
        }
     }).then(function(response){
        console.log("user response", response);
@@ -228,7 +237,9 @@ this.loadProfile = function() {
     })
   }
 
-  
+
+  }; //end of update profile
+
     //=============================
     //-------User Delete User------
     //=============================

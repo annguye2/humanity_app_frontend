@@ -32,6 +32,7 @@
         <img class="cardHeaderBlack" src="assets/back-black.png" height="55px" width="45px"/></div>
         <ul id="nav-mobile" class="left hide-on-med-and-down">
           <li><a href="" data-toggle="modal" data-target="#profile">Profile</a></li>
+          <li><a href="" data-toggle="modal" data-target="#info"><img ng-src="assets/info-icon.png" height="30" width="30"/></a></li>
           <li><a href="" role=" button" ng-click="CAH.logout()">Log Out</a></li>
         </ul>
       </div>
@@ -55,7 +56,10 @@
     <div class="formInput modal-body"  ng-init="player.loadProfile()">
                  <form>
                      <!-- <div ng-show="!CAH.isRegistered" style="color:red">{{CAH.createUserMessage}}</div> -->
-                     <p ng-model="CAH.username" type="text" placeholder="username"/><br>
+
+                     <p><br>
+                     <label>username:</label> <input readonly="" ng-model="player.playerProfile.username" type="text" /><br>
+                     <label>high scores:</label><input readonly="" ng-model="player.playerProfile.high_score" type="text" /><br>
                      <label>Name:<span style="color:red">*</span></label> <input ng-model="player.playerProfile.name" type="text" /><br>
                      <label> Email: </label><input ng-model="player.playerProfile.email" type="text" /><br>
                      <label>Image URL:</label> <input ng-model="player.playerProfile.img" type="text"/>
@@ -63,6 +67,7 @@
                       <button class="btn btn-default" type="submit" name="button" ng-click="player.updateProfile()">Update</button>
                       <button class="btn btn-default" type="submit" name="button" ng-click="player.deletePlayer()">Disable</button>
                  </form >
+                  <p style="color:red; font-size: 12px" ng-show='player.showErrorOnUpdate'>{{player.updateProfileError}}</p>
     </div>
       <div class="modal-footer">
            <!-- <button class="btn btn-default" type="submit" name="button" ng-click="CAH.loginUser(userPass)">Disable</button> -->
@@ -77,7 +82,7 @@
        <main class="gameboard">
           <div class="deckOfCards">
              <img ng-hide="CAH.isDealtBlack" ng-click='CAH.dealBlack()' class="blackDeck" src="assets/back-black.png" height="275px" width="200px"/>
-             <img ng-hide="!CAH.isDealtBlack" ng-hide="CAH.isDealtWhite" ng-click='CAH.dealWhite()'class="whiteDeck" src="assets/back-white.png" height="275px" width="200px"/>
+             <img ng-hide="!CAH.isDealtBlack" ng-show="!CAH.isDealtWhite" ng-click='CAH.dealWhite()'class="whiteDeck" src="assets/back-white.png" height="275px" width="200px"/>
          </div>
             <!-- need to refrest the div  to the end of round -->
           <div ng-show="CAH.showQuestion" class="slide-in-elliptic-top-fwd blackDealt">
@@ -121,6 +126,38 @@
           </div>
 
        </aside>
+    </div>
+
+    <!-- Instructions Modal -->
+    <div class="transparent modal fade" id="info" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="formHeader modal-title">How to Play</h4>
+        </div>
+        <div class="modal-body">
+           <form>
+              <h1>Welcome to Cards Against Humanities.  Basic Instructions are below: </h1>
+              <ol align='left'>
+                 <li> Upon logging in, a new game is initiated. </li>
+                 <li> First, the player must click the black deck to reveal the first fill-in-the-black phrase.</li>
+                 <li> Next, the player must click the white deck in order to be dealt their first 4 white cards. </li>
+                 <li> The player then selects which of the four white cards makes the most entertaining fill-in-the-blank response to the black card.  The computer does similarly. </li>
+                 <li> This completes the first round of play and points (based on a proprietary weighted scoring algorithm) are given to either the player or computer, whoever had the most entertaining response. </li>
+                 <li> The player must click the black deck to reveal the next question. </li>
+                 <li> After 10 rounds, the winner is determined. </li>
+              </ol>
+              Further details about the game can be found <a href="https://cardsagainsthumanity.com/"> here. </a>
+           </form >
+        </div>
+          <div class="modal-footer">
+               <!-- <button class="btn btn-default" type="submit" name="button" ng-click="CAH.loginUser(userPass)">Disable</button> -->
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
     </div>
     <footer>Made with &hearts; by An Nguyen, Biren Jaspal, & Soniya Jassal<br> Powered by Cards Against Humanity&copy; </footer>
 </body>
