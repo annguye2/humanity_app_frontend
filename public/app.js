@@ -1,7 +1,7 @@
 // console.clear();
 // this is updating for Biren
-var app_domain = "http://localhost:8000/"; //"https://humanity-app-frontend.herokuapp.com/";
-var api_domain  ="http://localhost:3000/";//'https://humanity-app-api.herokuapp.com/';//
+var app_domain = //"http://localhost:8000/";
+var api_domain  ='https://humanity-app-api.herokuapp.com/';//"http://localhost:3000/";
 //========================
 //-----Angular Module-----
 //========================
@@ -102,27 +102,9 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
   //---------User Logout---------
   //=============================
   this.logout = function(){
-<<<<<<< HEAD
      console.log('logout');
     $localStorage.$reset();
     window.location.href='/';
-=======
-
-     //clear session--check for logout function in routes
-   //   $http({ // Makes HTTP request to server
-   //    method: 'POST',
-   //    url: this.domainurl1 + '/players',
-   //    data: { // Gets turned into req.body
-   //      name: this.name,
-   //      img: this.img,
-   //      password: this.password,
-   //      email: this.email,
-   //      high_score: 0
-   //    }
-    localStorage.clear('token');
-    window.location.href = this.url1;
-    //location.reload();
->>>>>>> 4480c30b27b04e471716ff04ee500fa21328b398
   };
 
   //=============================
@@ -165,18 +147,13 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
       console.log(response);
       if(response.status == 201)
       {
-<<<<<<< HEAD
         window.location.href = app_domain; //"http://localhost:8000";
-=======
-         window.location.href = this.indexHtml; //"http://localhost:8000";
->>>>>>> 4480c30b27b04e471716ff04ee500fa21328b398
       }
       // }else //Can we do validation?
       // {
       //
       //    this.createUserMessage = "Registration Incomplete";
       // }
-<<<<<<< HEAD
     })
   }; // end of creat User
 
@@ -260,9 +237,6 @@ this.loadProfile = function() {
 this.cancelUpdate = function(){
 window.location.href = '/app.html';
 }
-=======
-   })}; // end of creat User
->>>>>>> 4480c30b27b04e471716ff04ee500fa21328b398
 }]); // end of User Controller
 
 
@@ -285,15 +259,12 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
   this.computerScore = 0;
   this.gameCount = 0 ;
   this.gameIsOver = false;
-  this.dealtBlackcard = [] ;  // dealt black cards
+  this.dealtBlackcard;   // dealt black cards
   this.dealtWhitecards = [];   // dealt whitecards
   this.playerSelectedWhiteCard;
   this.showAnswers = false;
   this.showQuestion = false;
   this.cardPlayed = false;
-  this.isDealtBlack = false;
-  this.isDealtWhite = false;
-  this.timer = 0;
 
   //===============================
   //---Cards Get All Black Cards---
@@ -327,14 +298,12 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
     this.blackcards.splice(this.random, 1);
     this.showQuestion = true;
     //console.log(this.isDealtBlack);
-    this.isDealtBlack = true;
 
   };
   //==============================
   //----Cards Deal White Cards----
   //==============================
   this.dealWhite= function (){
-<<<<<<< HEAD
     this.showAnswers = true;
     //console.log('these whitecards :', this.whitecards);
     if (this.dealtWhitecards.length != 4){  //this prevent the dealtWhitecards pass 4 cards each time this function got called
@@ -345,15 +314,6 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
         //console.log('loop run???  :' , this.dealtWhitecards);
      }
     }
-=======
-    for (var i = 0 ; i < 4; i ++ ){
-      this.random = this.getRandomArbitrary(this.whitecards.length - 1, 0);
-      this.dealtWhitecards.push(this.whitecards[this.random]);
-      this.whitecards.splice(this.random, 1);
-      this.showAnswers = true;
-      this.isDealtWhite =true;
-   };
->>>>>>> 4480c30b27b04e471716ff04ee500fa21328b398
   };
   //=================================
   //---Cards Computer Turn to Play---
