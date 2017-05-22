@@ -1,7 +1,7 @@
 // console.clear();
 // this is updating for Biren
-var app_domain = "https://humanity-app-frontend.herokuapp.com/";//"http://localhost:8000/";
-var api_domain  ='https://humanity-app-api.herokuapp.com/';//"http://localhost:3000/";
+var app_domain = "http://localhost:8000/"; //"https://humanity-app-frontend.herokuapp.com/";
+var api_domain  ="http://localhost:3000/";//'https://humanity-app-api.herokuapp.com/';//
 //========================
 //-----Angular Module-----
 //========================
