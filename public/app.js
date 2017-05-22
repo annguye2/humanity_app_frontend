@@ -1,6 +1,6 @@
 // console.clear();
 // this is updating for Biren
-var app_domain = "http://localhost:8000/";
+var app_domain = //"http://localhost:8000/";
 var api_domain  ='https://humanity-app-api.herokuapp.com/';//"http://localhost:3000/";
 //========================
 //-----Angular Module-----
@@ -19,6 +19,7 @@ app.service('sharedProperties', function () {
 //-----User Controller----
 //========================
 app.controller('UsersController', ['$http', '$scope', function($http, $scope, sharedProperties){
+  this.mainpage = "/app.html";
   //=============================
   //----User Initializing Var----
   //=============================
@@ -36,7 +37,7 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
   //=============================
   this.loginUser = function(userPass) {
     console.log(userPass);
-    this.mainpage = "http://localhost:8000/app.html";
+
     if ((userPass == 'undefined') ||
     (userPass.username == null) ||
     (userPass.username == '') ||
