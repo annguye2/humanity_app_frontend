@@ -9,7 +9,7 @@ var app = express();
 
 
 app.use(express.static('public'));
-var port = 8000 || process.env.PORT;
+var port =  process.env.PORT || 8000;
 
 //
 //
