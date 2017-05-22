@@ -202,8 +202,8 @@ this.loadProfile = function() {
       },
        data: {
         //  name:      this.updatePlayerName,  //update name
-          password:  this.updatePlayerPassword,//testing
-        //  img:       this.updatePlayerImg,
+        //  password:  this.updatePlayerPassword,//testing
+          high_score:       this.playerProfile.high_score,
         //  email:     this.updatePlayerEmail
 
        }

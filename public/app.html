@@ -8,7 +8,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
       <!-- APP -->
       <!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css"> -->
 
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
@@ -39,7 +39,7 @@
       <img class="cardHeaderWhite" src="assets/back-white.png" height="110px" width="75px"/>
       <img class="cardHeaderBlack" src="assets/back-black.png" height="110px" width="75px"/>
    </header>
-
+<!-- Profile Modal -->
    <div class="transparent modal fade" id="profile" role="dialog">
      <div class="modal-dialog">
        <!-- Modal content-->
@@ -48,16 +48,17 @@
            <button type="button" class="close" data-dismiss="modal">&times;</button>
            <h4 class="formHeader modal-title">Sign Up Form</h4>
        </div>
-       <div class="formInput modal-body">
+       <div class="formInput modal-body" ng-controller="UsersController as player" ng-init="player.loadProfile()">
                     <form>
-                        <div ng-show="!CAH.isRegistered" style="color:red">{{CAH.createUserMessage}}</div>
-                        <input ng-model="CAH.name" type="text" placeholder="Name"/><span style="color:red">*</span><br>
-                        <input ng-model="CAH.email" type="text" placeholder="Email"/><span style="opacity: 0">*</span><br>
+                        <!-- <div ng-show="!CAH.isRegistered" style="color:red">{{CAH.createUserMessage}}</div> -->
+                        <input ng-model="player.playerProfile.high_score" type="text" />
+
+                        <!-- <input ng-model="CAH.email" type="text" placeholder="Email"/><span style="opacity: 0">*</span><br> -->
                         <!-- <input type="text" placeholder="Date of Birth"/><br> -->
-                        <input ng-model="CAH.img" type="text" placeholder="Image URL"/><span style="opacity: 0">*</span><br>
-                        <input ng-model="CAH.username" type="text" placeholder="username"/><span style="color:red">*</span><br>
-                        <input ng-model="CAH.password" type="text" placeholder="Password"/><span style="color:red">*</span><br>
-                         <button class="btn btn-default" type="submit" name="button" ng-click="CAH.createUser()">Update</button>
+                        <!-- <input ng-model="CAH.img" type="text" placeholder="Image URL"/><span style="opacity: 0">*</span><br> -->
+                        <!-- <input ng-model="CAH.username" type="text" placeholder="username"/><span style="color:red">*</span><br> -->
+                        <!-- <input ng-model="CAH.password" type="text" placeholder="Password"/><span style="color:red">*</span><br> -->
+                         <button class="btn btn-default" type="submit" name="button" ng-click="player.updateProfile()">Update</button>
                     </form >
        </div>
          <div class="modal-footer">
