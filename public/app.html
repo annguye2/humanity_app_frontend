@@ -25,58 +25,52 @@
      <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy" rel="stylesheet"/>
 </head>
 <body ng-controller="CardsController as CAH">
-   <nav class="pure-menu pure-menu-horizontal">
-       <ul class="pure-menu-list">
-           <li class="pure-menu-item"><a href="#" class="pure-menu-link">Home</a></li>
-           <li class="pure-menu-item"><a href="#profile" class="pure-menu-link"  data-toggle="modal" data-target="#profile">Profile</a></li>
-           <li  class="pure-menu-item"><a href="" role=" button" ng-click="CAH.logout()" class="pure-menu-link" >Log Out</a></li>
-           <!-- <li class="pure-menu-item"><a href="#" class="pure-menu-link">Sign Up</a></li>
-           <li class="pure-menu-item"><a href="#" class="pure-menu-link">Log In</a></li> -->
-       </ul>
-   </nav>
+  <nav>
+    <div class="space nav-wrapper">
+      <div class="brand-logo right"><span class="headerText">Cards Against Humanity</span>
+        <img class="cardHeaderWhite" src="assets/back-white.png" height="55px" width="45px"/>
+        <img class="cardHeaderBlack" src="assets/back-black.png" height="55px" width="45px"/></div>
+        <ul id="nav-mobile" class="left hide-on-med-and-down">
+          <li><a href="" data-toggle="modal" data-target="#profile">Profile</a></li>
+          <li><a href="" role=" button" ng-click="CAH.logout()">Log Out</a></li>
+        </ul>
+      </div>
+    </nav>
    <header>
       <span class="headerText">Cards Against Humanity</span>
       <img class="cardHeaderWhite" src="assets/back-white.png" height="110px" width="75px"/>
       <img class="cardHeaderBlack" src="assets/back-black.png" height="110px" width="75px"/>
    </header>
 <!-- Profile Modal -->
-   <div class="transparent modal fade" id="profile" role="dialog">
-     <div class="modal-dialog">
-       <!-- Modal content-->
-       <div class="modal-content">
-         <div class="modal-header">
-           <button type="button" class="close" data-dismiss="modal">&times;</button>
-           <h4 class="formHeader modal-title">Sign Up Form</h4>
-       </div>
-       <div class="formInput modal-body" ng-controller="UsersController as player" ng-init="player.loadProfile()">
-                    <form>
-                        <!-- <div ng-show="!CAH.isRegistered" style="color:red">{{CAH.createUserMessage}}</div> -->
-                        <input ng-model="player.playerProfile.high_score" type="text" />
-
-                        <!-- <input ng-model="CAH.email" type="text" placeholder="Email"/><span style="opacity: 0">*</span><br> -->
-                        <!-- <input type="text" placeholder="Date of Birth"/><br> -->
-                        <!-- <input ng-model="CAH.img" type="text" placeholder="Image URL"/><span style="opacity: 0">*</span><br> -->
-                        <!-- <input ng-model="CAH.username" type="text" placeholder="username"/><span style="color:red">*</span><br> -->
-                        <!-- <input ng-model="CAH.password" type="text" placeholder="Password"/><span style="color:red">*</span><br> -->
-                         <button class="btn btn-default" type="submit" name="button" ng-click="player.updateProfile()">Update</button>
-                         <button class="btn btn-default" type="submit" name="button" ng-click="player.deletePlayer()">Disable</button>
-                    </form >
-       </div>
-         <div class="modal-footer">
-              <!-- <button class="btn btn-default" type="submit" name="button" ng-click="CAH.loginUser(userPass)">Disable</button> -->
-           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-         </div>
-       </div>
-     </div>
-   </div>
-   <!-- <nav class="pure-menu pure-menu-horizontal">
-       <ul class="pure-menu-list">
-           <li class="pure-menu-item"><a href="#" class="pure-menu-link">Home</a></li>
-           <li class="pure-menu-item"><a href="#" class="pure-menu-link">Profile</a></li>
-           <li class="pure-menu-item"><a href="#" class="pure-menu-link">Sign Up</a></li>
-           <li class="pure-menu-item"><a href="#" class="pure-menu-link">Log Log In</a></li>
-       </ul>
-   </nav> -->
+<!-- https://www.taxback.com/resources/image/itn_man_img.png -->
+<div ng-controller="UsersController as player" class="transparent modal fade" id="profile" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <img ng-src="{{player.playerProfile.img}}" height="50" width="50"/>
+        <h4 class="formHeader modal-title">{{player.playerProfile.name}} Profile</h4>
+    </div>
+    <div class="formInput modal-body"  ng-init="player.loadProfile()">
+                 <form>
+                     <!-- <div ng-show="!CAH.isRegistered" style="color:red">{{CAH.createUserMessage}}</div> -->
+                     <p ng-model="CAH.username" type="text" placeholder="username"/><br>
+                     <label>Name:<span style="color:red">*</span></label> <input ng-model="player.playerProfile.name" type="text" /><br>
+                     <label> Email: </label><input ng-model="player.playerProfile.email" type="text" /><br>
+                     <label>Image URL:</label> <input ng-model="player.playerProfile.img" type="text"/>
+                     <label>Password:<span style="color:red">*</span></label><input ng-model="player.playerProfile.password" type="text"/>
+                      <button class="btn btn-default" type="submit" name="button" ng-click="player.updateProfile()">Update</button>
+                      <button class="btn btn-default" type="submit" name="button" ng-click="player.deletePlayer()">Disable</button>
+                 </form >
+    </div>
+      <div class="modal-footer">
+           <!-- <button class="btn btn-default" type="submit" name="button" ng-click="CAH.loginUser(userPass)">Disable</button> -->
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
    <div class="container">
 
@@ -110,9 +104,10 @@
           </div>
        </main>
        <aside>
+
           <div class="col s12 m1">
             <div class="score card-panel grey darken-3">
-              <span class="asideHeader white-text">PLAYER:</span>
+              <span class="asideHeader white-text">{{CAH.currentPlayerName}}:</span>
               <span class="white-text"> {{CAH.playerScore}}
               </span>
             </div>
@@ -124,26 +119,7 @@
               </span>
             </div>
           </div>
-          <div class="col s12 m5">
-            <div class="score card-panel grey darken-3">
-              <span class="asideHeader white-text">TIMER:</span>
-              <span class="white-text"> {{CAH.timer}}
-              </span>
-            </div>
-          </div>
-          <!-- <div class="col s12 m5">
-            <div class="score card-panel grey darken-3">
-              <span class="asideHeader white-text">HOW TO PLAY:</span>
-              <span class="white-text">
-                 <ol>
-                    <li>Each player begins with, and will always have, 10 white answer cards.</li>
-                   <li>For each round, one player is randomly chosen as the Card Czar.</li>
-                   <li>Everyone else answers the black question card by clicking on the answer card they want to use.</li>
-                   <li>The Card Czar then picks a favorite answer, and whoever played that answer wins the round.</li>
-                </ol>
-              </span>
-            </div>
-          </div> -->
+
        </aside>
     </div>
     <footer>Made with &hearts; by An Nguyen, Biren Jaspal, & Soniya Jassal<br> Powered by Cards Against Humanity&copy; </footer>

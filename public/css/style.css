@@ -64,7 +64,7 @@ nav{
 
 
 aside{
-   margin-top: 30px;
+   /*margin-top: 40px;*/
    display: flex;
    order: -1;
    /*justify-content: center;*/
@@ -89,6 +89,9 @@ span{
    padding: 0;
 }
 
+.space{
+   margin-top: 0px;
+}
 .headerText{
    margin-right: 20px;
 }
@@ -114,8 +117,6 @@ span{
    /*justify-content: center;*/
    /*flex-wrap: wrap;*/
    margin-top: 40px;
-   
-
 }
 
 .whiteDealt{
@@ -216,6 +217,7 @@ span{
 .cardHeaderWhite{
    border-radius: 5px;
    transform: rotate(-15deg);
+   top: 0px;
 }
 
 .asideHeader{
@@ -290,7 +292,7 @@ span{
       flex: 0, 0, 1200px;
    }
    nav{
-      flex: 0 0 3.5em;
+      flex: 0 0 6.5em;
       background-color: black;
       display: block;
       padding: 1em;
@@ -299,8 +301,7 @@ span{
       flex: 0 0 15em;
       justify-content: center;
       /*background-color: black;*/
-      margin-right: 20px;
-      margin-top:75px;
+      margin: auto;
    }
    footer{
       /*margin-top: 20%;*/

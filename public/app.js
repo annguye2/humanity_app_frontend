@@ -23,60 +23,64 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
   //=============================
   this.player = {};
   this.isRegistered = true;
-  this.isLoggedIn = false;
+  this.isLoggedIn = true;
+  // this.showLoginError = false;
+  this.logInMessage = 'Invalid Login Attempt, please try again.'
   //this.domainurl1 = "http://localhost:3000";
   //this.url1 = "http://localhost:8000/";
+this.resetLoginMsg = function(){
+  this.isLoggedIn  = true;
+}
   //=============================
   //-------User Login User-------
   //=============================
   this.loginUser = function(userPass) {
-    console.log("ksyfkhsdfhfkdh", userPass);
-      // this.isLoggedIn = false;
-      // console.log("ksyfkhsdfhfkdh", userPass.userPass);
-      // if  {
-      //   console.log("can't find user");
-      // }
-      // else{
-        if ((userPass  == undefined) && (userPass.username == '') || (userPass.password == ''))
-        {
-          // window.location.href = app_domain;
-          this.logInMessage = 'Invalid Login Attempt, please try again.'
-          this.isLoggedIn=false;
-          console.log("wrongggggg");
+      if (!userPass) {
+        console.log("missing all filds", this.isLoggedIn);
+        this.isLoggedIn = !this.isLoggedIn;
+      }
+      else{
+        if ((userPass.username == '' || userPass.username == undefined)
+        || (userPass.password == '' || userPass.password == undefined )){
+           console.log('missing field(s)');
+           this.isLoggedIn = false;
         }
         else{
-              $http({ // Makes HTTP request to server
-                method: 'POST',
-                // url: this.domainurl1 + '/players/login',
-                url: api_domain + 'players/login',
-                data: {
-                  player: { // Gets turned into req.body
-                    username: userPass.username,
-                    password: userPass.password
+             console.log('Checking Player' , userPass.password);
+             if ((userPass.username != '' || userPass.username != undefined)
+             && (userPass.password != '' || userPass.password != undefined )){
+                console.log('EVerything is looking good, checking user ');
+                $http({ // Makes HTTP request to server
+                  method: 'POST',
+                  // url: this.domainurl1 + '/players/login',
+                  url: api_domain + 'players/login',
+                  data: {
+                    player: { // Gets turned into req.body
+                      username: userPass.username,
+                      password: userPass.password
+                    }
                   }
-                }
-              }).then(function(response) {
-                console.log(response);
-                if(response.data.token){
-                  console.log("Logged in");
-                  this.player=response.data.player;
-                  localStorage.setItem('token', JSON.stringify(response.data.token));
-                  localStorage.setItem('playerId', this.player.id);
-                  window.location.href = this.mainpage;
-                  console.log(JSON.parse(localStorage.getItem('token')));
-                  this.isLoggedIn = true;
-                }
-                else if(response.data.token == 'undefined'){
-                  // window.location.href = app_domain;
-                this.isLoggedIn = false;
-                  this.logInMessage = 'Invalid Login Attempt, please try again.'
-                }
-              }.bind(this));
+                }).then(function(response) {
+                  console.log(response);
+                  if(response.data.token){
+                    console.log("Logged in");
+                    this.player=response.data.player;
+                    localStorage.setItem('token', JSON.stringify(response.data.token));
+                    localStorage.setItem('playerId', this.player.id);
+                    localStorage.setItem('playerName',this.player.name);
+                    window.location.href = this.mainpage;
+                    console.log(JSON.parse(localStorage.getItem('token')));
+                    this.isLoggedIn = true;
+                  }
+                  else {
+                  console.log("can't find player in the database!!!");
+                  this.isLoggedIn = false;
+                  }
+                }.bind(this));
+             }
         }
       }
-  }]); // end of login
-
-
+  }; // end of login
   //=============================
   //-------User Get Players------
   //=============================
@@ -96,8 +100,6 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
       }
     }.bind(this));
   };
-
-
   //=============================
   //---------User Logout---------
   //=============================
@@ -255,6 +257,7 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
   this.isDealtBlack = false;
   this.isDealtWhite = false;
   this.timer = 0;
+  this.currentPlayerName = localStorage.getItem('playerName');
   //===============================
   //---Cards Get All Black Cards---
   //===============================
@@ -330,21 +333,5 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
       if(this.playerEachRoundScore  > this.computerEachRoundScore){
         // console.log("player is a winner ");
         this.playerScore += this.playerEachRoundScore;
-      }else{
+      } else{
         this.computerScore += this.computerEachRoundScore;
-      }
-      if (this.playerEachRoundScore > this.computerEachRoundScore ){
-        console.log("Player is a winner ");
-      }
-      else  {
-        console.log("computer is a winner ");
-      }
-      if (this.gameCount > 9 ){
-        this.gameIsOver = true;
-        this.highScore();
-      }else {
-        this.gameCount += 1;
-        this.nextRound();
-      }
-    }.bind(this));
-   }
