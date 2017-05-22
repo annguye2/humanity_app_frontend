@@ -8,7 +8,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
       <!-- APP -->
       <!-- Compiled and minified CSS -->
-  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
 
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
@@ -59,10 +59,11 @@
                         <!-- <input ng-model="CAH.username" type="text" placeholder="username"/><span style="color:red">*</span><br> -->
                         <!-- <input ng-model="CAH.password" type="text" placeholder="Password"/><span style="color:red">*</span><br> -->
                          <button class="btn btn-default" type="submit" name="button" ng-click="player.updateProfile()">Update</button>
+                         <button class="btn btn-default" type="submit" name="button" ng-click="player.deletePlayer()">Disable</button>
                     </form >
        </div>
          <div class="modal-footer">
-              <button class="btn btn-default" type="submit" name="button" ng-click="CAH.loginUser(userPass)">Disable</button>
+              <!-- <button class="btn btn-default" type="submit" name="button" ng-click="CAH.loginUser(userPass)">Disable</button> -->
            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
          </div>
        </div>

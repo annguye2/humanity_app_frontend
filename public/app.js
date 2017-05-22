@@ -36,47 +36,53 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
   //-------User Login User-------
   //=============================
   this.loginUser = function(userPass) {
-    console.log(userPass);
+    console.log("ksyfkhsdfhfkdh", userPass);
+      this.isLoggedIn = false;
+      // console.log("ksyfkhsdfhfkdh", userPass.userPass);
+      if (userPass  == undefined) {
+        console.log("can't find user");
 
-    if ((userPass == 'undefined') ||
-    (userPass.username == null) ||
-    (userPass.username == '') ||
-    (userPass.username == 'undefined') ||
-    (userPass.password == '') ||
-    (userPass.password == 'undefined') ||
-    (userPass.password == null)){
-      window.location.href = app_domain;
-      this.logInMessage = 'Invalid Login Attempt, please try again.'
-      return;
-    }
+      }
+      else{
+        if ((userPass.username == '') || (userPass.password == ''))
+        {
+          // window.location.href = app_domain;
+          this.logInMessage = 'Invalid Login Attempt, please try again.'
+          this.isLoggedIn=false;
+          console.log("wrongggggg");
 
-    $http({ // Makes HTTP request to server
-      method: 'POST',
-      // url: this.domainurl1 + '/players/login',
-      url: api_domain + 'players/login',
-      data: {
-        player: { // Gets turned into req.body
-          username: userPass.username,
-          password: userPass.password
+        }
+        else{
+              $http({ // Makes HTTP request to server
+                method: 'POST',
+                // url: this.domainurl1 + '/players/login',
+                url: api_domain + 'players/login',
+                data: {
+                  player: { // Gets turned into req.body
+                    username: userPass.username,
+                    password: userPass.password
+                  }
+                }
+              }).then(function(response) {
+                console.log(response);
+                if(response.data.token){
+                  console.log("Logged in");
+                  this.player=response.data.player;
+                  localStorage.setItem('token', JSON.stringify(response.data.token));
+                  localStorage.setItem('playerId', this.player.id);
+                  window.location.href = this.mainpage;
+                  console.log(JSON.parse(localStorage.getItem('token')));
+                  this.isLoggedIn = true;
+                }
+                else if(response.data.token == 'undefined'){
+                  // window.location.href = app_domain;
+                this.isLoggedIn = false;
+                  this.logInMessage = 'Invalid Login Attempt, please try again.'
+                }
+              }.bind(this));
         }
       }
-    }).then(function(response) {
-      console.log(response);
-      if(response.data.token){
-        console.log("Logged in");
-        this.player=response.data.player;
-        localStorage.setItem('token', JSON.stringify(response.data.token));
-        localStorage.setItem('playerId', this.player.id);
-        window.location.href = this.mainpage;
-        console.log(JSON.parse(localStorage.getItem('token')));
-        this.isLoggedIn = true;
-      }
-      else if(response.data.token == 'undefined'){
-        window.location.href = app_domain;
-        this.logInMessage = 'Invalid Login Attempt, please try again.'
-      }
-    }.bind(this));
-  };
+  }; // end of login
 
   //=============================
   //-------User Get Players------
