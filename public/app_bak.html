@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html ng-app="CAHApp">
+<head>
+<!-- <<<<<<< HEAD -->
+<title>Cards Against Humanity</title>
+<!--Angular-->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+<!-- JQUERY -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<!-- APP -->
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+
+
+</script>
+<script src="app.js"></script>
+<!--STYLE SHEET-->
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+<link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/pure-min.css" integrity="sha384-UQiGfs9ICog+LwheBSRCt1o5cbyKIHbwjWscjemyBMT9YCUMZffs6UqUTd0hObXD" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<!--FONT-->
+<link href="https://fonts.googleapis.com/css?family=Luckiest+Guy" rel="stylesheet">
+</head>
+<body ng-controller="CardsController as CAH">
+<nav class="pure-menu pure-menu-horizontal">
+  <ul class="pure-menu-list">
+    <li class="pure-menu-item"><a href="/" class="pure-menu-link">Home</a></li>
+    <li class="pure-menu-item"><a href="/profile.html" class="pure-menu-link">Profile</a></li>
+    <li class="pure-menu-item"><a href="/" class="pure-menu-link" ng-click='CAH.logout()'>Log Out</a></li>
+
+  </ul>
+</nav>
+<header>
+  <span class="headerText">Cards Against Humanity</span>
+  <img class="cardHeaderWhite" src="assets/back-white.png" height="110px" width="75px"/>
+  <img class="cardHeaderBlack" src="assets/back-black.png" height="110px" width="75px"/>
+</header>
+
+<div class="container">
+<main class="gameboard">
+  <div class="deckOfCards">
+    <img ng-click='CAH.dealBlack()' class="blackDeck" src="assets/back-black.png" height="275px" width="200px"/>
+    <img ng-click='CAH.dealWhite()'class="whiteDeck" src="assets/back-white.png" height="275px" width="200px"/>
+</div>
+<!-- ======= End head -->
+
+ <div class="transparent modal fade" id="profile" role="dialog">
+   <div class="modal-dialog">
+     <!-- Modal content-->
+     <div class="modal-content">
+       <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal">&times;</button>
+         <h4 class="formHeader modal-title">Sign Up Form</h4>
+     </div>
+     <div class="formInput modal-body">
+                  <form>
+                      <div ng-show="!CAH.isRegistered" style="color:red">{{CAH.createUserMessage}}</div>
+                      <input ng-model="CAH.name" type="text" placeholder="Name"/><span style="color:red">*</span><br>
+                      <input ng-model="CAH.email" type="text" placeholder="Email"/><span style="opacity: 0">*</span><br>
+                      <!-- <input type="text" placeholder="Date of Birth"/><br> -->
+                      <input ng-model="CAH.img" type="text" placeholder="Image URL"/><span style="opacity: 0">*</span><br>
+                      <input ng-model="CAH.username" type="text" placeholder="username"/><span style="color:red">*</span><br>
+                      <input ng-model="CAH.password" type="text" placeholder="Password"/><span style="color:red">*</span><br>
+                       <button class="btn btn-default" type="submit" name="button" ng-click="CAH.createUser()">Update</button>
+                  </form >
+     </div>
+       <div class="modal-footer">
+            <button class="btn btn-default" type="submit" name="button" ng-click="CAH.loginUser(userPass)">Disable</button>
+         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+       </div>
+     </div>
+   </div>
+ </div>
+ <!-- <nav class="pure-menu pure-menu-horizontal">
+     <ul class="pure-menu-list">
+         <li class="pure-menu-item"><a href="#" class="pure-menu-link">Home</a></li>
+         <li class="pure-menu-item"><a href="#" class="pure-menu-link">Profile</a></li>
+         <li class="pure-menu-item"><a href="#" class="pure-menu-link">Sign Up</a></li>
+         <li class="pure-menu-item"><a href="#" class="pure-menu-link">Log Log In</a></li>
+     </ul>
+ </nav> -->
+
+ <div class="container">
+
+     <main class="gameboard">
+        <div class="deckOfCards">
+           <img ng-hide="CAH.isDealtBlack" ng-click='CAH.dealBlack()' class="blackDeck" src="assets/back-black.png" height="275px" width="200px"/>
+           <img ng-hide="CAH.isDealtWhite" ng-click='CAH.dealWhite()'class="whiteDeck" src="assets/back-white.png" height="275px" width="200px"/>
+       </div>
+          <!-- need to refrest the div  to the end of round -->
+        <div ng-show="CAH.showQuestion" class="slide-in-elliptic-top-fwd blackDealt">
+           <img class="blackPlayed" src="assets/blank-black.png" height="275px" width="200px"/>
+					 <!-- An changed:  -->
+					 <!-- <span class="blackQuestions">{{CAH.question}}</span><br> -->
+			<span class="blackQuestions">{{CAH.dealtBlackcard.question}}</span><br>
+					 <!-- end -->
+       </div>
+       <div class="cardSelectedPlayer" ng-show='CAH.cardPlayed'>
+          <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/><span class-"whiteAnswers"
+					 {{CAH.playerSelectedWhiteCard.answer}}</span>
+       </div>
+		<div class="cardSelectedComp" ng-show='CAH.cardPlayed'>
+          <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/><span class="whiteAnswers">{{CAH.computerAnswer.answer}}</span><br>
+      </div>
+      <div ng-hide="CAH.isSelected"class="playerCards">
+				<!-- An changed and added -->
+         <!-- <div   ng-click='CAH.selectCard(answer)' class="whiteDealt" ng-repeat='answer in CAH.answers track by $index'> -->
+				 <div ng-show="CAH.showAnswers" ng-click='CAH.selectCard(card, $index); CAH.computerTurn()' class="slide-in-elliptic-top-fwd whiteDealt" ng-repeat='card in CAH.dealtWhitecards track by $index'>
+         <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"><span class="whiteAnswers">{{card.answer}}</span></img></div>
+         <!-- <div class="whiteDealt">
+           <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/><br></div>
+        <div class="whiteDealt">
+           <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/><br></div>
+        <div class="whiteDealt">
+           <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/><br></div>
+        <div class="whiteDealt">
+           <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/><br></div>
+        <div class="whiteDealt">
+           <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/><br></div>
+        <div class="whiteDealt">
+           <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/><br></div> -->
+      </div>
+     </main>
+     <aside>
+        <div class="col s12 m1">
+          <div class="score card-panel grey darken-3">
+            <span class="asideHeader white-text">PLAYER:</span>
+            <span class="white-text"> {{CAH.playerScore}}
+            </span>
+          </div>
+       <!-- </div> -->
+        <div class="col s12 m5">
+          <div class="score card-panel grey darken-3">
+            <span class="asideHeader white-text">CAH BOT:</span>
+            <span class="white-text"> {{CAH.computerScore}}
+            </span>
+          </div>
+        </div>
+        <div class="col s12 m5">
+          <div class="score card-panel grey darken-3">
+            <span class="asideHeader white-text">TIMER:</span>
+            <span class="white-text"> {{CAH.timer}}
+            </span>
+          </div>
+        </div>
+        <!-- <div class="col s12 m5">
+          <div class="score card-panel grey darken-3">
+            <span class="asideHeader white-text">HOW TO PLAY:</span>
+            <span class="white-text">
+               <ol>
+                  <li>Each player begins with, and will always have, 10 white answer cards.</li>
+                 <li>For each round, one player is randomly chosen as the Card Czar.</li>
+                 <li>Everyone else answers the black question card by clicking on the answer card they want to use.</li>
+                 <li>The Card Czar then picks a favorite answer, and whoever played that answer wins the round.</li>
+              </ol>
+            </span>
+          </div>
+        </div> -->
+     </aside>
+<!-- >>>>>>> 4480c30b27b04e471716ff04ee500fa21328b398 -->
+  </div>
+  <!-- need to refrest the div  to the end of round -->
+  <div ng-show="CAH.showQuestion" class="slide-in-elliptic-top-fwd blackDealt">
+    <!-- <img class="blackPlayed" src="assets/blank-black.png" height="275px" width="200px"/> -->
+    <!-- An changed:  -->
+    <!-- <span class="blackQuestions">{{CAH.question}}</span><br> -->
+    <!-- <span class="blackQuestions">{{CAH.dealtBlackcard.question}}</span><br> -->
+    <!-- end -->
+  </div>
+
+  <!-- <div class="cardSelectedComp" ng-show='CAH.cardPlayed'>
+    <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/><span class="whiteAnswers">{{CAH.computerAnswer.answer}}</span>
+  </img><br>
+</div>
+<div class="cardSelectedPlayer" ng-show='CAH.cardPlayed'>
+  <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/><span class="whiteAnswers">{{CAH.playerSelectedWhiteCard.answer}}</span><br>
+ </img><br>
+</div> -->
+
+<!-- <div ng-hide="CAH.isSelected"class="playerCards"> -->
+  <!-- An changed and added -->
+  <!-- <div   ng-click='CAH.selectCard(answer)' class="whiteDealt" ng-repeat='answer in CAH.answers track by $index'> -->
+  <!-- <div ng-show="CAH.showAnswers" ng-click='CAH.selectCard(card, $index); CAH.computerTurn()' class="slide-in-elliptic-top-fwd whiteDealt" ng-repeat='card in CAH.dealtWhitecards track by $index'> -->
+    <!-- <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"><span class="whiteAnswers">{{card.answer}}</span></img><br></div> -->
+    <!-- <div class="whiteDealt">
+    <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/><br></div>
+    <div class="whiteDealt">
+    <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/><br></div>
+    <div class="whiteDealt">
+    <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/><br></div>
+    <div class="whiteDealt">
+    <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/><br></div>
+    <div class="whiteDealt">
+    <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/><br></div>
+    <div class="whiteDealt">
+    <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/><br></div> -->
+  <!-- </div> -->
+</main>
+<!-- <aside>
+  <div class="col s12 m5">
+    <div class="score card-panel grey darken-3">
+      <span class="asideHeader white-text">PLAYER:</span>
+      <span class="white-text">{{CAH.playerScore}}
+      </span>
+    </div>
+  </div>
+  <div class="col s12 m5">
+    <div class="score card-panel grey darken-3">
+      <span class="asideHeader white-text">COMPUTER:</span>
+      <span class="white-text">{{CAH.computerScore}}
+      </span>
+    </div>
+  </div>
+  <div class="col s12 m5">
+    <div class="score card-panel grey darken-3">
+      <span class="asideHeader white-text">COUNT DOWN</span>
+      <span class="white-text">{{timer}}
+      </span>
+    </div>
+  </div>
+  <div class="col s12 m5">
+    <div class="score card-panel grey darken-3">
+      <span class="asideHeader white-text">HOW TO PLAY:</span>
+      <span class="white-text">
+        <ol>
+          <li>Each player begins with, and will always have, 10 white answer cards.</li>
+          <li>For each round, one player is randomly chosen as the Card Czar.</li>
+          <li>Everyone else answers the black question card by clicking on the answer card they want to use.</li>
+          <li>The Card Czar then picks a favorite answer, and whoever played that answer wins the round.</li>
+        </ol>
+      </span>
+    </div>
+  </div>
+</aside>
+</div> -->
+<footer>Made with &hearts; by An Nguyen, Biren Jaspal, & Soniya Jassal<br> Powered by Cards Against Humanity&copy; </footer>
+</body>
+</html>
