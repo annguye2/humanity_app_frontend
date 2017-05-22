@@ -25,6 +25,14 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
   this.player = {};
   this.isRegistered = true;
   this.isLoggedIn = false;
+//update variables
+  this.updatePlayerId="";  // for update
+  this.updatePlayerName="";
+  this.updatePlayerPassword ="";
+  this.updatePlayerImg ="";
+  this.updatePlayerEmail = "";
+  this.updatePlayerToken =""
+
   //this.domainurl1 = "http://localhost:3000";
   //this.url1 = "http://localhost:8000/";
 
@@ -33,18 +41,18 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
   //-------User Login User-------
   //=============================
   this.loginUser = function(userPass) {
-     console.log(userPass);
+    console.log(userPass);
     this.mainpage = "http://localhost:8000/app.html";
     if ((userPass == 'undefined') ||
-        (userPass.username == null) ||
-        (userPass.username == '') ||
-        (userPass.username == 'undefined') ||
-        (userPass.password == '') ||
-        (userPass.password == 'undefined') ||
-        (userPass.password == null)){
-           window.location.href = app_domain;
-           this.logInMessage = 'Invalid Login Attempt, please try again.'
-           return;
+    (userPass.username == null) ||
+    (userPass.username == '') ||
+    (userPass.username == 'undefined') ||
+    (userPass.password == '') ||
+    (userPass.password == 'undefined') ||
+    (userPass.password == null)){
+      window.location.href = app_domain;
+      this.logInMessage = 'Invalid Login Attempt, please try again.'
+      return;
     }
 
     $http({ // Makes HTTP request to server
@@ -75,8 +83,6 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
     }.bind(this));
   };
 
-
-
   //=============================
   //-------User Get Players------
   //=============================
@@ -93,7 +99,7 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
       if(response.data.status == 401) {
         this.error = "Unauthorized";
       } else {
-        this.players = resonse.data;
+        this.players = response.data;
       }
     }.bind(this));
   };
@@ -103,18 +109,18 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
   this.logout = function(){
 
     //clear session--check for logout function in routes
-   //   $http({ // Makes HTTP request to server
-   //    method: 'POST',
-   //    url: this.domainurl1 + '/players',
-   //    data: { // Gets turned into req.body
-   //      name: this.name,
-   //      img: this.img,
-   //      password: this.password,
-   //      email: this.email,
-   //      high_score: 0
-   //    }
-    localStorage.clearAll();
-    location.reload();
+    //   $http({ // Makes HTTP request to server
+    //    method: 'POST',
+    //    url: this.domainurl1 + '/players',
+    //    data: { // Gets turned into req.body
+    //      name: this.name,
+    //      img: this.img,
+    //      password: this.password,
+    //      email: this.email,
+    //      high_score: 0
+    //    }
+    localStorage.clear();
+    window.location.href='/';
   };
 
   //=============================
@@ -130,17 +136,17 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
   this.name = "";
 
   this.createUser = function(){
-  //console.log('create new player');
-   if((this.username == '') ||
-      (this.username == 'undefined')||
-      (this.name == '') ||
-      (this.name == 'undefined') ||
-      (this.password == '') ||
-      (this.password == 'undefined')){
+    //console.log('create new player');
+    if((this.username == '') ||
+    (this.username == 'undefined')||
+    (this.name == '') ||
+    (this.name == 'undefined') ||
+    (this.password == '') ||
+    (this.password == 'undefined')){
       this.isRegistered = false;
       this.createUserMessage = "Your registration is incomplete";
       return;
-   }
+    }
     $http({ // Makes HTTP request to server
       method: 'POST',
       // url: this.domainurl1 + '/players',
@@ -157,16 +163,90 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
       console.log(response);
       if(response.status == 201)
       {
-         window.location.href = app_domain; //"http://localhost:8000";
+        window.location.href = app_domain; //"http://localhost:8000";
       }
       // }else //Can we do validation?
       // {
       //
       //    this.createUserMessage = "Registration Incomplete";
       // }
-})
+    })
   }; // end of creat User
+
+  //=============================
+  //-------User Update User------
+  //=============================
+
+//=============================
+//-------User Get a Player  information for update------
+//=============================
+this.playerProfile ="";
+this.loadProfile = function() {
+  console.log('get currrent player info');
+  $http({ // Makes HTTP request to server
+    method: 'GET',
+    url: api_domain + 'players/' + localStorage.getItem('playerId'),
+    headers: {
+      Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('token'))
+    }
+  }).then(function(response) {
+    if(response.data.status == 401) {
+      this.error = "Unauthorized";
+    } else {
+      this.playerProfile = response.data;
+      console.log("current Player info: ", this.playerProfile);
+    }
+  }.bind(this));
+};
+//=============================
+//-------User Update User------
+//=============================
+  this.updateProfile = function(){
+    this.currentPlayerId = localStorage.getItem('playerId');
+
+    $http({ // Makes HTTP request to server
+      method: 'PUT',
+     //  url: domainurl2+ '/players/' + this.currentPlayerId,
+      url: api_domain + '/players/' + this.currentPlayerId,
+      headers: {
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('token'))
+      },
+       data: {
+         high_score: this.playerScore,
+         username:  "win", // testing
+         password: "pass1234" //testing
+       }
+    }).then(function(response){
+       console.log("user response", response);
+    })
+  }
+    //=============================
+    //-------User Delete User------
+    //=============================
+  this.deletePlayer = function(){
+    this.currentPlayerId = localStorage.getItem('playerId');
+    console.log("localStorage.getItem('playerid'):  ", localStorage.getItem('playerId'));
+    $http({ // Makes HTTP request to server
+      method: 'DELETE',
+     //  url: domainurl2+ '/players/' + this.currentPlayerId,
+      url: api_domain + '/players/' + this.currentPlayerId,
+
+      headers: {
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('token'))
+       },
+
+    }).then(function(response){
+       console.log("user response", response);
+       window.location.href = '/'
+    })
+  }
+
+this.cancelUpdate = function(){
+window.location.href = '/app.html';
+}
 }]); // end of User Controller
+
+
 
 //========================
 //---Cards Controller---
