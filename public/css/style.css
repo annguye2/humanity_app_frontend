@@ -89,6 +89,9 @@ span{
    padding: 0;
 }
 
+.align{
+   float:left;
+}
 .space{
    margin-top: 0px;
 }
@@ -102,6 +105,15 @@ span{
    top: 5px;
    font-size: 18px;
    color: white;
+}
+.answers{
+   display: flex;
+   margin: auto;
+}
+.identity{
+   position: absolute;
+   top: 245px;
+   text-align: right;
 }
 
 .whiteAnswers{
@@ -187,6 +199,8 @@ span{
 .whitePlayed{
    border-radius: 10px;
    box-shadow: 10px 10px 5px #888888;
+   /*display: block;
+   margin: auto;*/
 }
 
 .deckOfCards{

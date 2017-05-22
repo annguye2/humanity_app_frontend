@@ -92,15 +92,34 @@
 				<span class="blackQuestions">{{CAH.dealtBlackcard.question}}</span><br>
 						 <!-- end -->
          </div>
-          <div class="answers" ng-show='CAH.cardPlayed'>
-            <!-- <div class="cardSelectedPlayer" > PLAYER -->
+          <!-- <div class="answers" ng-show='CAH.cardPlayed'>
+
               <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/><span class-"whiteAnswers">
                 {{CAH.playerSelectedWhiteCard.answer}}</span>
-              <!-- </div> -->
-              <!-- <div class="cardSelectedComp" ng-show='CAH.cardPlayed'> COMPUTER -->
+
                 <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/><span class="whiteAnswers">{{CAH.computerAnswer.answer}}</span><br>
-              <!-- </div> -->
-          </div>
+
+          </div> -->
+
+          <div class="answers" ng-show='CAH.cardPlayed'>
+                      <!-- <div class="cardSelectedPlayer" > PLAYER -->
+                        <!-- <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/><span class-"whiteAnswers">
+                          {{CAH.playerSelectedWhiteCard.answer}}</span> -->
+                        <!-- </div> -->
+                        <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/>
+
+                           <span class="whiteAnswers">{{CAH.playerSelectedWhiteCard.answer}}
+                              <span class="identity">{{CAH.currentPlayerName}}</span>
+                           </span><br>
+                        <!-- <div class="cardSelectedComp" ng-show='CAH.cardPlayed'> COMPUTER -->
+                        <img class="whitePlayed" src="assets/blank-white.png" height="275px" width="200px"/>
+                        <span class="whiteAnswers">{{CAH.computerAnswer.answer}}
+                           <span class="identity">CAH BOT</span>
+                        </span><br>
+                        <!-- </div> -->
+            </div>
+
+
 
         <div ng-hide="CAH.isSelected"class="playerCards">
           <div ng-show="CAH.showAnswers" ng-click='CAH.selectCard(card, $index); CAH.computerTurn()' class="slide-in-elliptic-top-fwd whiteDealt" ng-repeat='card in CAH.dealtWhitecards track by $index'>
