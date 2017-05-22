@@ -1,12 +1,12 @@
 // console.clear();
 // this is updating for Biren
-var app_domain = "https://humanity-app-frontend.herokuapp.com/";//"http://localhost:8000/";
-var api_domain  ='https://humanity-app-api.herokuapp.com/';//"http://localhost:3000/";
+var app_domain = "http://localhost:8000/";
+// var api_domain = "http://localhost:3000/";
+var api_domain = 'https://humanity-app-api.herokuapp.com/';
 //========================
 //-----Angular Module-----
 //========================
 var app = angular.module('CAHApp', []);
-
 //========================
 //---Service Controller---
 //========================
@@ -23,70 +23,86 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
   //=============================
   //----User Initializing Var----
   //=============================
+
+  this.gameIsOver = localStorage.getItem('gameIsOver');
   this.player = {};
   this.isRegistered = true;
-  this.isLoggedIn = false;
-
+  this.isLoggedIn = true;
+  // this.showLoginError = false;
+  this.logInMessage = 'Invalid Login Attempt, please try again.'
 
   //this.domainurl1 = "http://localhost:3000";
   //this.url1 = "http://localhost:8000/";
 
 
+this.resetLoginMsg = function(){
+  this.isLoggedIn  = true;
+}
   //=============================
   //-------User Login User-------
   //=============================
   this.loginUser = function(userPass) {
-    console.log(userPass);
 
-    if ((userPass == 'undefined') ||
-    (userPass.username == null) ||
-    (userPass.username == '') ||
-    (userPass.username == 'undefined') ||
-    (userPass.password == '') ||
-    (userPass.password == 'undefined') ||
-    (userPass.password == null)){
-      window.location.href = app_domain;
-      this.logInMessage = 'Invalid Login Attempt, please try again.'
-      return;
-    }
+      if (!userPass) {
+        console.log("missing all filds", this.isLoggedIn);
+        this.isLoggedIn = !this.isLoggedIn;
+      }
+      else{
+        if ((userPass.username == '' || userPass.username == undefined)
+        || (userPass.password == '' || userPass.password == undefined )){
+           console.log('missing field(s)');
+           this.isLoggedIn = false;
+        }
+        else{
+             console.log('Checking Player' , userPass.password);
 
-    $http({ // Makes HTTP request to server
-      method: 'POST',
-      // url: this.domainurl1 + '/players/login',
-      url: api_domain + 'players/login',
-      data: {
-        player: { // Gets turned into req.body
-          username: userPass.username,
-          password: userPass.password
+             if ((userPass.username != '' || userPass.username != undefined)
+             && (userPass.password != '' || userPass.password != undefined )){
+                console.log('EVerything is looking good, checking user ');
+                $http({ // Makes HTTP request to server
+                  method: 'POST',
+                  // url: this.domainurl1 + '/players/login',
+                  url: api_domain + 'players/login',
+                  data: {
+                    player: { // Gets turned into req.body
+                      username: userPass.username,
+                      password: userPass.password
+                    }
+                  }
+                }).then(function(response) {
+                  console.log(response);
+                  if(response.data.token){
+                    console.log("Logged in");
+                    this.player=response.data.player;
+                    localStorage.setItem('token', JSON.stringify(response.data.token));
+                    localStorage.setItem('playerId', this.player.id);
+                    localStorage.setItem('playerName',this.player.name);
+                    window.location.href = this.mainpage;
+                    console.log(JSON.parse(localStorage.getItem('token')));
+                    this.isLoggedIn = true;
+                  }
+                  else {
+                  console.log("can't find player in the database!!!");
+                  this.isLoggedIn = false;
+
+                  }
+                }.bind(this));
+             }
+
         }
       }
-    }).then(function(response) {
-      console.log(response);
-      if(response.data.token){
-        console.log("Logged in");
-        this.player=response.data.player;
-        localStorage.setItem('token', JSON.stringify(response.data.token));
-        localStorage.setItem('playerId', this.player.id);
-        window.location.href = this.mainpage;
-        console.log(JSON.parse(localStorage.getItem('token')));
-        this.isLoggedIn = true;
-      }
-      else if(response.data.token == 'undefined'){
-        window.location.href = app_domain;
-        this.logInMessage = 'Invalid Login Attempt, please try again.'
-      }
-    }.bind(this));
-  };
+  }; // end of login
+
 
   //=============================
   //-------User Get Players------
   //=============================
   this.getPlayers = function() {
-
+  console.log('loading when game is over ');
     $http({ // Makes HTTP request to server
       method: 'GET',
       // url: this.domainurl1 + '/players/',
-      url: api_domain + '/players/',
+      url: api_domain + '/players',
       headers: {
         Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('token'))
       }
@@ -94,16 +110,18 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
       if(response.data.status == 401) {
         this.error = "Unauthorized";
       } else {
-        this.players = response.data;
+        this.players = response.data; //get all players
       }
     }.bind(this));
   };
+
+
   //=============================
   //---------User Logout---------
   //=============================
   this.logout = function(){
      console.log('logout');
-    $localStorage.$reset();
+    //$localStorage.$reset();
     window.location.href='/';
   };
 
@@ -186,32 +204,45 @@ this.loadProfile = function() {
 //-------User Update User------
 //=============================
 //update variables
-  this.updatePlayerName="";
-  this.updatePlayerPassword ="";
-  this.updatePlayerImg ="";
-  this.updatePlayerEmail = "";
+  // this.updatePlayerName="";
+  // this.updatePlayerPassword ="";
+  // this.updatePlayerImg ="";
+  // this.updatePlayerEmail = "";
+  this.updateProfileError = "Invalid input for name/password";
+  this.showErrorOnUpdate  = false;
   this.updateProfile = function(){
   this.currentPlayerId = localStorage.getItem('playerId');
-
+  console.log(' this is current player profile ', this.playerProfile);
+  if ((this.playerProfile.name == "" || this.playerProfile.name == undefined) ||
+       (this.playerProfile.password == "" || this.playerProfile.password == undefined))
+       {
+         console.log(" invalid input ");
+         this.showErrorOnUpdate = true;
+       }
+  else{
+    console.log('alow to update ');
     $http({ // Makes HTTP request to server
       method: 'PUT',
-     //  url: domainurl2+ '/players/' + this.currentPlayerId,
       url: api_domain + '/players/' + this.currentPlayerId,
       headers: {
         Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('token'))
       },
        data: {
-        //  name:      this.updatePlayerName,  //update name
-          password:  this.updatePlayerPassword,//testing
-        //  img:       this.updatePlayerImg,
-        //  email:     this.updatePlayerEmail
-
+          name:      this.playerProfile.name,
+          password:  this.playerProfile.password,
+          high_score:this.playerProfile.high_score,
+          email:     this.playerProfile.email,
+          img:       this.playerProfile.img
        }
     }).then(function(response){
        console.log("user response", response);
        window.location.href="/app.html"
     })
   }
+
+
+  }; //end of update profile
+
     //=============================
     //-------User Delete User------
     //=============================
@@ -265,7 +296,10 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
   this.showAnswers = false;
   this.showQuestion = false;
   this.cardPlayed = false;
-
+  this.isDealtBlack = false;
+  this.isDealtWhite = false;
+  this.timer = 0;
+  this.currentPlayerName = localStorage.getItem('playerName');
   //===============================
   //---Cards Get All Black Cards---
   //===============================
@@ -297,6 +331,7 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
     this.dealtBlackcard  = this.blackcards[this.random];
     this.blackcards.splice(this.random, 1);
     this.showQuestion = true;
+    this.isDealtBlack = true;
     //console.log(this.isDealtBlack);
 
   };
@@ -314,6 +349,8 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
         //console.log('loop run???  :' , this.dealtWhitecards);
      }
     }
+    this.showAnswers = true;
+    this.isDealtWhite =true;
   };
   //=================================
   //---Cards Computer Turn to Play---
@@ -358,6 +395,7 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
       }
       if (this.gameCount > 9 ){
         this.gameIsOver = true;
+        localStorage.setItem('gameIsOver', this.gameIsOver);
         this.highScore();
       }else {
         this.gameCount += 1;
@@ -446,9 +484,9 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
   //---Cards Log out   ---
   //=======================
   this.logout = function(){
-    console.log('logout');
+    console.log('logout from Card');
     localStorage.clear();
-    //window.location.href='/';
+    window.location.href='/';
   };
 
 }]); // end of controller
