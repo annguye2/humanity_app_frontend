@@ -1,7 +1,7 @@
 // console.clear();
 // this is updating for Biren
-var app_domain = //"http://localhost:8000/";
-var api_domain  ='https://humanity-app-api.herokuapp.com/';//"http://localhost:3000/";
+var app_domain = "http://localhost:8000/";
+var api_domain = "http://localhost:3000/"; //'https://humanity-app-api.herokuapp.com/';
 //========================
 //-----Angular Module-----
 //========================
@@ -103,7 +103,7 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
   //=============================
   this.logout = function(){
      console.log('logout');
-    $localStorage.$reset();
+    //$localStorage.$reset();
     window.location.href='/';
   };
 
@@ -265,7 +265,9 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
   this.showAnswers = false;
   this.showQuestion = false;
   this.cardPlayed = false;
-
+  this.isDealtBlack = false;
+  this.isDealtWhite = false;
+  this.timer = 0;
   //===============================
   //---Cards Get All Black Cards---
   //===============================
@@ -297,6 +299,7 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
     this.dealtBlackcard  = this.blackcards[this.random];
     this.blackcards.splice(this.random, 1);
     this.showQuestion = true;
+    this.isDealtBlack = true;
     //console.log(this.isDealtBlack);
 
   };
@@ -314,6 +317,8 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
         //console.log('loop run???  :' , this.dealtWhitecards);
      }
     }
+    this.showAnswers = true;
+    this.isDealtWhite =true;
   };
   //=================================
   //---Cards Computer Turn to Play---
@@ -446,9 +451,9 @@ app.controller('CardsController', ['$http', '$scope', function($http, $scope,sha
   //---Cards Log out   ---
   //=======================
   this.logout = function(){
-    console.log('logout');
+    console.log('logout from Card');
     localStorage.clear();
-    //window.location.href='/';
+    window.location.href='/';
   };
 
 }]); // end of controller
