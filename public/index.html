@@ -91,14 +91,17 @@
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                   <h4 class="formHeader modal-title">Log In</h4>
                 </div>
-                <div ng-show="!CAH.isLoggedIn" style="color:red">{{CAH.logInMessage}}</div>
-                <div class="formInput modal-body">
-                     <input type="text" ng-model="userPass.username" placeholder="Userame"/><br>
-                     <input type="text" ng-model="userPass.password" placeholder="Password"/><br>
-                </div>
+                <form >
+                  <div ng-show="!CAH.isLoggedIn" style="color:red">{{CAH.logInMessage}}</div>
+                  <div class="formInput modal-body">
+                       <input type="text" ng-model="userPass.username" placeholder="Userame"/><br>
+                       <input type="text" ng-model="userPass.password" placeholder="Password"/><br>
+                  </div>
+                </form>
+
                 <div class="modal-footer">
                      <button class="btn btn-default" type="submit" name="button" ng-click="CAH.loginUser(userPass)">Login</button>
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button ng-click='CAH.resetLoginMsg()'type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
               </div>
             </div>
