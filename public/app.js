@@ -158,15 +158,14 @@ app.controller('UsersController', ['$http', '$scope', function($http, $scope, sh
       console.log(response);
       if(response.status == 201)
       {
-         window.location.href = this.indexHtml; "http://localhost:8000";
+         window.location.href = this.indexHtml; //"http://localhost:8000";
       }
       // }else //Can we do validation?
       // {
       //
       //    this.createUserMessage = "Registration Incomplete";
       // }
-
-  }; // end of creat User
+   })}; // end of creat User
 }]); // end of User Controller
 
 //========================
