@@ -54,13 +54,13 @@
         <img ng-src="{{player.playerProfile.img}}" height="50" width="50"/>
         <h4 class="formHeader modal-title">{{player.playerProfile.name}} Profile</h4>
     </div>
-    <div class="formInput modal-body"  ng-init="player.loadProfile()">
+    <div class="formInput modal-body" ng-init="player.loadProfile()">
                  <form>
                      <!-- <div ng-show="!CAH.isRegistered" style="color:red">{{CAH.createUserMessage}}</div> -->
 
                      <p><br>
                      <label>username:</label> <input readonly="" ng-model="player.playerProfile.username" type="text" /><br>
-                     <label>high scores:</label><input readonly="" ng-model="player.playerProfile.high_score" type="text" /><br>
+                     <!-- <label>high scores:</label><input readonly="" ng-model="player.playerProfile.high_score" type="text" /><br> -->
                      <label>Name:<span style="color:red">*</span></label> <input ng-model="player.playerProfile.name" type="text" /><br>
                      <label> Email: </label><input ng-model="player.playerProfile.email" type="text" /><br>
                      <label>Image URL:</label> <input ng-model="player.playerProfile.img" type="text"/>
@@ -115,7 +115,21 @@
           </div>
         </div> -->
        <main class="gameboard">
-          <div class="endOfGame" ng-show='CAH.gameIsOver'>The winner is:
+         <div class="endOfGame" ng-show='CAH.winnerPlayer'>The winner is:
+           <span> {{CAH.currentPlayerName}}!</span>
+         </div>
+         <div class="endOfGame" ng-show='CAH.winnerComp'>The winner is:
+           <span> {{CAH.winner}}</span>
+         </div>
+         <!-- <span ng-show='CAH.winnerComp'>{{CAH.winner}}</span> -->
+         <div class="endOfGame" ng-show='CAH.gameIsOver'>
+           <div class="title">
+             <img class="title1 roll-in-left" src="assets/Cards.png" height="275px" width="200px"/>
+             <img class="title2 swing-in-top-fwd" src="assets/Against.png" height="275px" width="200px"/>
+             <img class="title3 roll-in-right" src="assets/Humanity.png" height="275px" width="200px"/>
+           </div>
+         </div>
+          <!-- <div class="endOfGame" ng-show='CAH.gameIsOver'>The winner is:
              <span ng-if='CAH.winnerPlayer'> {{CAH.currentPlayerName}}!</span>
              <span ng-if='CAH.winnerComp'>CAH Bot!</span>
              <div class="title">
@@ -123,7 +137,7 @@
                  <img class="title2 swing-in-top-fwd" src="assets/Against.png" height="275px" width="200px"/>
                  <img class="title3 roll-in-right" src="assets/Humanity.png" height="275px" width="200px"/>
              </div>
-          </div>
+          </div> -->
           <div class="deckOfCards">
              <img ng-hide="CAH.isDealtBlack" ng-click='CAH.dealBlack()' class="blackDeck" src="assets/back-black.png" height="275px" width="200px"/>
              <img ng-hide="!CAH.isDealtBlack" ng-show="!CAH.isDealtWhite" ng-click='CAH.dealWhite()'class="whiteDeck" src="assets/back-white.png" height="275px" width="200px"/>
@@ -224,12 +238,12 @@
                            <th>High Score</th>
                         </tr>
                         <thead>
-                           <tbody ng-repeat="scores in highscore.players">
+                           <tbody ng-repeat="scores in highscore.players | orderBy:'-high_score'">
                               <tr>
-                                 <td>test{{scores.name}}</td>
+                                 <td>{{scores.name}}</td>
                               </tr>
                               <tr>
-                                 <td>test{{scores.high_score}}</td>
+                                 <td>{{scores.high_score}}</td>
                               </tr>
                            </tbody>
                         </table>
