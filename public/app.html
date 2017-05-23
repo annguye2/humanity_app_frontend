@@ -60,7 +60,7 @@
 
                      <p><br>
                      <label>username:</label> <input readonly="" ng-model="player.playerProfile.username" type="text" /><br>
-                     <!-- <label>high scores:</label><input readonly="" ng-model="player.playerProfile.high_score" type="text" /><br> -->
+                     <!-- <label>  scores:</label><input readonly="" ng-model="player.playerProfile.high_score" type="text" /><br> -->
                      <label>Name:<span style="color:red">*</span></label> <input ng-model="player.playerProfile.name" type="text" /><br>
                      <label> Email: </label><input ng-model="player.playerProfile.email" type="text" /><br>
                      <label>Image URL:</label> <input ng-model="player.playerProfile.img" type="text"/>
@@ -241,8 +241,7 @@
                            <tbody ng-repeat="scores in highscore.players | orderBy:'-high_score'">
                               <tr>
                                  <td>{{scores.name}}</td>
-                              </tr>
-                              <tr>
+                              
                                  <td>{{scores.high_score}}</td>
                               </tr>
                            </tbody>
