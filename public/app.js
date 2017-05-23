@@ -311,6 +311,9 @@ console.log("start the if ", localStorage.getItem('token'));
   this.isDealtWhite = false;
   this.timer = 0;
   this.currentPlayerName = localStorage.getItem('playerName');
+  this.winnerPlayer = false;
+  this.winnerComp = false;
+  this.diplay = false;
   //===============================
   //---Cards Get All Black Cards---
   //===============================
@@ -400,9 +403,14 @@ console.log("start the if ", localStorage.getItem('token'));
 
       if (this.playerEachRoundScore > this.computerEachRoundScore ){
         console.log("Player is a winner ");
+        this.winnerPlayer = true;
+        //this.display = true;
+
       }
       else  {
         console.log("computer is a winner ");
+        this.winnerComp = true;
+        //this.display = true;
       }
       if (this.gameCount > 9 ){
         this.gameIsOver = true;
@@ -485,9 +493,12 @@ console.log("start the if ", localStorage.getItem('token'));
   //=======================
   this.timeOut = function(){
 
-    console.log("white cards " , this.whitecards );
-    (this.computerTurn(), 5000);
-    $timeout(this.computerTurn, 5000);
+   //  console.log("white cards " , this.whitecards );
+   //  (this.computerTurn(), 5000);
+   //  $timeout(this.computerTurn, 5000);
+//    $timeout(computerTurn(){
+//
+// }, 3000);
 
   }
 

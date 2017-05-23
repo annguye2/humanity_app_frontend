@@ -28,7 +28,7 @@ body {
    	-ms-animation: 20s linear 0s normal none infinite animate;
    	-o-animation: 20s linear 0s normal none infinite animate;
    	animation: 40s linear 0s normal none infinite animate;
-   min-width: 1200px;
+   min-width: 1600px;
    text-align: center;
 }
 
@@ -46,7 +46,8 @@ main{
    padding: 45px;
    padding-left: 10px;
    padding-right: 10px;
-   width: 900px;
+   width: 1200px;
+   height: 900px;
 }
 
 nav{
@@ -65,13 +66,14 @@ nav{
 
 aside{
    /*margin-top: 40px;*/
-   display: flex;
+   /*display: flex;*/
    order: -1;
-   /*justify-content: center;*/
+   justify-content: center;
    /*float: left;*/
    /*margin-top: 10px;*/
    /*text-align: left;*/
-   width: 350px;
+   /*width: 350px;*/
+   margin: auto;
 }
 
 header {
@@ -87,6 +89,43 @@ header {
 span{
    margin: 0;
    padding: 0;
+}
+.btn1{
+   font-size: 15px;
+   /*transform: rotate(0 deg);*/
+   position: absolute;
+   left: 50%;
+   top: 1050px;
+   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+   font-weight: bold;
+   justify-content: center;
+}
+.title{
+   display: block;
+   text-align: center;
+   position:relative;
+   margin-top: 15%;
+   /*Z-index: 1;*/
+   /*vertical-align: text-top;*/
+}
+.title1{
+   border-radius: 10px;
+   position: relative;
+}
+.title2{
+   top: 300px;
+   border-radius: 10px;
+}
+.title3{
+   border-radius: 10px;
+   /*position: relative;*/
+}
+
+.scoreboard{
+   width: 100%
+   padding:20px;
+   justify-content: center;
+   border-radius: 5px;
 }
 
 .align{
@@ -129,13 +168,19 @@ span{
    /*justify-content: center;*/
    /*flex-wrap: wrap;*/
    margin-top: 40px;
+   word-wrap: normal;
+}
+
+.endOfGame{
+   font-size: 50px;
+   color: white;
 }
 
 .whiteDealt{
    display: flex;
    /*margin: -55px;*/
-   /*justify-content: space-between;
-   align-content: stretch;
+   justify-content: space-between;
+   /*align-content: stretch;
    margin: auto;*/
    /*padding-right: 20px;*/
 }
@@ -237,8 +282,14 @@ span{
 .asideHeader{
    font-size: 15px;
 }
-
+.spacer{
+   padding: 5px;
+}
+.gameboard{
+   margin: auto;
+}
 .score{
+   justify-content: center;
    border-radius: 10px;
    background:#2F2F2F
    /*border-style: outset;
@@ -254,8 +305,9 @@ span{
    flex: 1;
    flex-direction: column;
    /*background-color: black;*/
-   border-radius: 5px; /*NEW*/
+   border-radius: 5px;
    width: 1200px;
+   padding: 10px;
    margin: 0 auto;
    text-align: center;
 }
@@ -272,6 +324,11 @@ span{
    font-size: 25px;
 }
 
+#wrapper{
+   width: 1600px;
+   margin: 0 auto;
+   text-align: left;
+}
 /*After many failed attempts to have the above code to animate over only the background image and failing the below code was found on: https://codepen.io/asfarmed/pen/IEhCK*/
 
 @-webkit-keyframes animate {
@@ -300,20 +357,20 @@ span{
 }
 
 @media (min-width: 768px){
-   .container{
+   /*.container{
       flex-direction: row;
       flex: 1;
       flex: 0, 0, 1200px;
-   }
+   }*/
    nav{
-      flex: 0 0 6.5em;
+      flex: 0 0 7.0em;
       background-color: black;
       display: block;
       padding: 1em;
    }
    aside{
-      flex: 0 0 15em;
-      justify-content: center;
+      flex: 0 0 12em;
+      justify-content:center;
       /*background-color: black;*/
       margin: auto;
    }
@@ -324,7 +381,7 @@ span{
    }
 
    main{
-      flex: 0 0 900px;
+      flex: 0 0 1200px;
       margin: auto;
    }
 }
@@ -339,6 +396,51 @@ span{
  	-moz-animation: slide-in-elliptic-top-fwd 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
  	animation: slide-in-elliptic-top-fwd 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
  }
+ /*.slide-in-left {
+  -webkit-animation: slide-in-left 3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  -moz-animation: slide-in-left 3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  animation: slide-in-left 3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 
+ }
+
+ .slide-in-right {
+   -webkit-animation: slide-in-right 3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+   -moz-animation: slide-in-right 3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+   animation: slide-in-right 3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+ }*/
+
+ .roll-in-left {
+   -webkit-animation: roll-in-left 1.0s ease-out both;
+   -moz-animation: roll-in-left 1.0s ease-out both;
+   animation: roll-in-left 1.0s ease-out both;
+ }
+
+ .roll-in-right {
+   -webkit-animation: roll-in-right 2.0s ease-out both;
+   -moz-animation: roll-in-right 2.0s ease-out both;
+   animation: roll-in-right 2.0s ease-out both;
+ }
+
+ .swing-in-top-fwd {
+   -webkit-animation: swing-in-top-fwd 5.0s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
+   -moz-animation: swing-in-top-fwd 5.0s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
+   animation: swing-in-top-fwd 5.0s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
+ }
  @-webkit-keyframes slide-in-elliptic-top-fwd{0%{-webkit-transform:translateY(-600px) rotateX(-30deg) scale(0);transform:translateY(-600px) rotateX(-30deg) scale(0);-webkit-transform-origin:50% 100%;transform-origin:50% 100%;opacity:0}100%{-webkit-transform:translateY(0) rotateX(0) scale(1);transform:translateY(30deg) rotateX(0) scale(1);-webkit-transform-origin:50% 1400px;transform-origin:50% 1400px;opacity:1}}
  @keyframes slide-in-elliptic-top-fwd{0%{-webkit-transform:translateY(-600px) rotateX(-30deg) scale(0);transform:translateY(-600px) rotateX(-30deg) scale(0);-webkit-transform-origin:50% 100%;transform-origin:50% 100%;opacity:0}100%{-webkit-transform:translateY(0) rotateX(0) scale(1);transform:translateY(35deg) rotateX(0) scale(1);-webkit-transform-origin:50% 1400px;transform-origin:50% 1400px;opacity:1}}
+
+ /*@-webkit-keyframes slide-in-left{0%{-webkit-transform:translateX(-1000px);transform:translateX(-1000px);opacity:0}100%{-webkit-transform:translateX(0);transform:translateX(0);opacity:.75}}
+ @keyframes slide-in-left{0%{-webkit-transform:translateX(-1000px);transform:translateX(-1000px);opacity:0}100%{-webkit-transform:translateX(0);transform:translateX(0);opacity:.75}}
+
+ @-webkit-keyframes slide-in-right{0%{-webkit-transform:translateX(1000px);transform:translateX(1000px);opacity:0}100%{-webkit-transform:translateX(0);transform:translateX(0);opacity:.5}}
+ @keyframes slide-in-right{0%{-webkit-transform:translateX(1000px);transform:translateX(1000px);opacity:0}100%{-webkit-transform:translateX(0);transform:translateX(0);opacity:.5}}*/
+
+
+ @-webkit-keyframes roll-in-right{0%{-webkit-transform:translateX(800px) rotate(540deg);transform:translateX(800px) rotate(540deg);opacity:0}100%{-webkit-transform:translateX(0) rotate(0deg);transform:translateX(0) rotate(15deg);opacity:1}}
+ @keyframes roll-in-right{0%{-webkit-transform:translateX(800px) rotate(540deg);transform:translateX(800px) rotate(540deg);opacity:0}100%{-webkit-transform:translateX(0) rotate(0deg);transform:translateX(0) rotate(15deg);opacity:1}}
+
+ @-webkit-keyframes roll-in-left{0%{-webkit-transform:translateX(-800px) rotate(-540deg);transform:translateX(-800px) rotate(-540deg);opacity:0}100%{-webkit-transform:translateX(0) rotate(0deg);transform:translateX(0) rotate(-15deg);opacity:1}}
+ @keyframes roll-in-left{0%{-webkit-transform:translateX(-800px) rotate(-540deg);transform:translateX(-800px) rotate(-540deg);opacity:0}100%{-webkit-transform:translateX(0) rotate(deg);transform:translateX(0) rotate(-15deg);opacity:1}}
+
+ @-webkit-keyframes swing-in-top-fwd{0%{-webkit-transform:rotateX(-100deg);transform:rotateX(-100deg);-webkit-transform-origin:top;transform-origin:top;opacity:0}100%{-webkit-transform:rotateX(0deg);transform:rotateX(0deg);-webkit-transform-origin:top;transform-origin:top;opacity:1}}
+ @keyframes swing-in-top-fwd{0%{-webkit-transform:rotateX(-100deg);transform:rotateX(-100deg);-webkit-transform-origin:top;transform-origin:top;opacity:0}100%{-webkit-transform:rotateX(0deg);transform:rotateX(0deg);-webkit-transform-origin:top;transform-origin:top;opacity:1}}
