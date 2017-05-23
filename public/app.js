@@ -1,6 +1,6 @@
 // console.clear();
 // this is updating for Biren
-//var app_domain = "http://localhost:8000/";
+// var app_domain = "http://localhost:8000/";
 // var api_domain = "http://localhost:3000/";
 var api_domain = 'https://humanity-app-api-1.herokuapp.com/';//'https://humanity-app-api.herokuapp.com/';
 var app_domain = 'https://humanity-app-frontend.herokuapp.com/'
@@ -76,6 +76,7 @@ this.resetLoginMsg = function(){
                     console.log("Logged in");
                     this.player=response.data.player;
                     localStorage.setItem('token', JSON.stringify(response.data.token));
+                    localStorage.setItem('high_score', this.player.high_score);
                     localStorage.setItem('playerId', this.player.id);
                     localStorage.setItem('playerName',this.player.name);
                     window.location.href = this.mainpage;
@@ -112,6 +113,7 @@ this.resetLoginMsg = function(){
         this.error = "Unauthorized";
       } else {
         this.players = response.data; //get all players
+        console.log("get all players ", this.players);
       }
     }.bind(this));
   };
@@ -311,6 +313,10 @@ console.log("start the if ", localStorage.getItem('token'));
   this.isDealtWhite = false;
   this.timer = 0;
   this.currentPlayerName = localStorage.getItem('playerName');
+  this.winnerPlayer = false;
+  this.winnerComp = false;
+  this.diplay = false;
+  this.winner ='';
   //===============================
   //---Cards Get All Black Cards---
   //===============================
@@ -398,16 +404,32 @@ console.log("start the if ", localStorage.getItem('token'));
         this.computerScore += this.computerEachRoundScore;
       }
 
-      if (this.playerEachRoundScore > this.computerEachRoundScore ){
-        console.log("Player is a winner ");
-      }
-      else  {
-        console.log("computer is a winner ");
+      // if (this.playerEachRoundScore > this.computerEachRoundScore ){
+      //   console.log("Player is a winner ");
+      //
+      // }
+      // else  {
+      //   console.log("computer is a winner ");
+      //
+      //   this.winner = 'CAH Bot!'
+      //   //this.display = true;
+      // }
+      if(this.gameCount == 10){
+          this.highScore();
+        if(this.playerScore > this.computerScore){
+          console.log('the winner is Player ');
+          this.winnerPlayer = true;
+        }else{
+          this.winner = 'CAH Bot!'
+          this.winnerComp = true;
+          console.log('the winner is computer ');
+        }
       }
       if (this.gameCount > 9 ){
+        console.log( " when the game is not equal to 10");
         this.gameIsOver = true;
         localStorage.setItem('gameIsOver', this.gameIsOver);
-        this.highScore();
+        // this.highScore();
       }else {
         this.gameCount += 1;
         this.nextRound();
@@ -419,23 +441,30 @@ console.log("start the if ", localStorage.getItem('token'));
   //----Cards High Score----
   //========================
    this.highScore = function(){
-     this.currentPlayerId = localStorage.getItem('playerId');
-     console.log("localStorage.getItem('playerid'):  ", localStorage.getItem('playerId'));
-     $http({ // Makes HTTP request to server
-       method: 'PUT',
-      //  url: domainurl2+ '/players/' + this.currentPlayerId,
-       url: api_domain + '/players/' + this.currentPlayerId,
-
-       headers: {
-         Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('token'))
-       },
-        data: {
-          high_score: this.playerScore
-        }
-     }).then(function(response){
-        console.log("user response", response);
-     })
-   }
+     var lastScore = localStorage.getItem('high_score');
+     console.log("last score : ", lastScore );
+     if(lastScore < this.playerScore)  {
+       console.log('log: update the high_score');
+       console.log( "high score setting ", this.playerScore);
+       this.currentPlayerId = localStorage.getItem('playerId');
+       console.log("localStorage.getItem('playerid'):  ", localStorage.getItem('playerId'));
+       $http({ // Makes HTTP request to server
+         method: 'PUT',
+         url: api_domain + '/players/' + this.currentPlayerId,
+         headers: {
+           Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('token'))
+         },
+         data: {
+           high_score: this.playerScore
+         }
+       }).then(function(response){
+         console.log("user response", response);
+       })
+     }
+     else{
+       console.log("the current score isn't got update");
+     }
+   }// end of high_score
 
    //========================
    //---Cards Player Turns---
@@ -485,9 +514,12 @@ console.log("start the if ", localStorage.getItem('token'));
   //=======================
   this.timeOut = function(){
 
-    console.log("white cards " , this.whitecards );
-    (this.computerTurn(), 5000);
-    $timeout(this.computerTurn, 5000);
+   //  console.log("white cards " , this.whitecards );
+   //  (this.computerTurn(), 5000);
+   //  $timeout(this.computerTurn, 5000);
+//    $timeout(computerTurn(){
+//
+// }, 3000);
 
   }
 
